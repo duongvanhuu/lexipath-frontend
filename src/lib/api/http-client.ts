@@ -7,6 +7,12 @@ import { ApiError } from "./api-error";
 // owned by feature `*.api.ts` files — never hardcode the origin in components.
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+if (process.env.NODE_ENV === "production" && !baseUrl) {
+  throw new Error(
+    "[LexiPath] NEXT_PUBLIC_API_BASE_URL is not set. Configure this env var before deploying."
+  );
+}
+
 /**
  * Shared HTTP client for the LexiPath (Spring Boot) backend.
  *
