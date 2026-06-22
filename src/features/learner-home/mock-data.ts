@@ -4,6 +4,7 @@ import type { TodayPathProps } from "@/components/lexipath/path/today-path";
 import type { GoldenTimeWindowProps } from "@/components/lexipath/golden-time/golden-time-window";
 import type { LearningInsightCardProps } from "@/components/lexipath/insights/learning-insight-card";
 import type { SkillLaneData } from "@/components/lexipath";
+import type { LanguageCode } from "@/features/auth/types/auth.types";
 
 /* -------------------------------------------------------------------------- */
 /* User                                                                        */
@@ -11,7 +12,7 @@ import type { SkillLaneData } from "@/components/lexipath";
 
 export type HomeUserData = {
   name: string;
-  activeLang: "en" | "ja" | "zh";
+  activeLang: LanguageCode;
 };
 
 export const MOCK_HOME_USER: HomeUserData = {

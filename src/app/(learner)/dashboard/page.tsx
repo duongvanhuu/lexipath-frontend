@@ -19,12 +19,13 @@ import {
   MOCK_SKILL_LANES,
   MOCK_INSIGHTS,
 } from "@/features/learner-home";
+import type { LanguageCode } from "@/features/auth/types/auth.types";
 
 /* -------------------------------------------------------------------------- */
 /* Active language labels                                                      */
 /* -------------------------------------------------------------------------- */
 
-const ACTIVE_LANG_LABELS: Record<"en" | "ja" | "zh", string> = {
+const ACTIVE_LANG_LABELS: Record<LanguageCode, string> = {
   en: "🇬🇧 Tiếng Anh",
   ja: "🇯🇵 Tiếng Nhật",
   zh: "🇨🇳 Tiếng Trung",
@@ -39,7 +40,7 @@ function HomeGreeting({
   activeLang,
 }: {
   name: string;
-  activeLang: "en" | "ja" | "zh";
+  activeLang: LanguageCode;
 }) {
   return (
     <header className="flex flex-col gap-1.5">
