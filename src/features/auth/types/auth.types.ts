@@ -16,6 +16,35 @@ export type LanguageCode = "en" | "ja" | "zh";
 /** Why the learner is studying — drives the generated path. */
 export type LearningGoal = "exam" | "travel" | "work" | "academic" | "hobby";
 
+/** CEFR proficiency codes (English). */
+export type CefrLevel =
+  | "CEFR_A1"
+  | "CEFR_A2"
+  | "CEFR_B1"
+  | "CEFR_B2"
+  | "CEFR_C1"
+  | "CEFR_C2";
+
+/** JLPT proficiency codes (Japanese). */
+export type JlptLevel =
+  | "JLPT_N5"
+  | "JLPT_N4"
+  | "JLPT_N3"
+  | "JLPT_N2"
+  | "JLPT_N1";
+
+/** HSK proficiency codes (Chinese). */
+export type HskLevel =
+  | "HSK_1"
+  | "HSK_2"
+  | "HSK_3"
+  | "HSK_4"
+  | "HSK_5"
+  | "HSK_6";
+
+/** Language-specific proficiency level code. */
+export type LevelCode = CefrLevel | JlptLevel | HskLevel;
+
 /** A signed-in LexiPath user as the UI consumes it. */
 export type AuthUser = {
   id: string;
@@ -43,7 +72,13 @@ export type ScriptPreference = {
 };
 
 /** The ordered onboarding steps. */
-export type OnboardingStepId = "language" | "goal" | "daily-goal" | "script";
+export type OnboardingStepId =
+  | "language"
+  | "goal"
+  | "level"
+  | "daily-goal"
+  | "script"
+  | "recommended-path";
 
 /** Progress descriptor for the onboarding journey shell. */
 export type OnboardingStep = {
@@ -59,6 +94,7 @@ export type OnboardingStep = {
 export type OnboardingSelection = {
   language?: LanguageCode;
   goal?: LearningGoal;
+  levelCode?: LevelCode;
   dailyGoal?: number;
   scriptId?: string;
 };

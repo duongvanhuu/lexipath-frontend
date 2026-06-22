@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Mail, Lock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -25,13 +26,20 @@ export type LoginFormProps = {
   isSubmitting?: boolean;
   /** Server-side error message (e.g. mapped from `ApiError`). */
   errorMessage?: string;
+  /** Href for "Quên mật khẩu?" — defaults to /forgot-password. */
+  forgotPasswordHref?: string;
 };
 
 /**
  * LoginForm — email/password sign-in built on React Hook Form + Zod + shadcn
  * Form. It never calls the API itself; the page passes `onSubmit`.
  */
-function LoginForm({ onSubmit, isSubmitting, errorMessage }: LoginFormProps) {
+function LoginForm({
+  onSubmit,
+  isSubmitting,
+  errorMessage,
+  forgotPasswordHref = "/forgot-password",
+}: LoginFormProps) {
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "", rememberMe: false },
@@ -51,12 +59,19 @@ function LoginForm({ onSubmit, isSubmitting, errorMessage }: LoginFormProps) {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input
-                  type="email"
-                  autoComplete="email"
-                  placeholder="ban@email.com"
-                  {...field}
-                />
+                <div className="relative">
+                  <Mail
+                    className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground"
+                    aria-hidden
+                  />
+                  <Input
+                    type="email"
+                    autoComplete="email"
+                    placeholder="email@example.com"
+                    className="h-11 pl-9"
+                    {...field}
+                  />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -68,32 +83,32 @@ function LoginForm({ onSubmit, isSubmitting, errorMessage }: LoginFormProps) {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mật khẩu</FormLabel>
+              <div className="flex items-center justify-between">
+                <FormLabel>Mật khẩu</FormLabel>
+                <Link
+                  href={forgotPasswordHref}
+                  className="text-xs text-primary hover:underline"
+                  tabIndex={0}
+                >
+                  Quên mật khẩu?
+                </Link>
+              </div>
               <FormControl>
-                <Input
-                  type="password"
-                  autoComplete="current-password"
-                  placeholder="••••••••"
-                  {...field}
-                />
+                <div className="relative">
+                  <Lock
+                    className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground"
+                    aria-hidden
+                  />
+                  <Input
+                    type="password"
+                    autoComplete="current-password"
+                    placeholder="Nhập mật khẩu"
+                    className="h-11 pl-9"
+                    {...field}
+                  />
+                </div>
               </FormControl>
               <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="rememberMe"
-          render={({ field }) => (
-            <FormItem className="flex-row items-center gap-2">
-              <FormControl>
-                <Checkbox
-                  checked={field.value ?? false}
-                  onCheckedChange={(checked) => field.onChange(checked === true)}
-                />
-              </FormControl>
-              <FormLabel className="font-normal">Ghi nhớ đăng nhập</FormLabel>
             </FormItem>
           )}
         />
@@ -104,7 +119,7 @@ function LoginForm({ onSubmit, isSubmitting, errorMessage }: LoginFormProps) {
           </p>
         ) : null}
 
-        <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+        <Button type="submit" size="lg" className="h-11 w-full" disabled={isSubmitting}>
           {isSubmitting ? "Đang đăng nhập…" : "Đăng nhập"}
         </Button>
       </form>

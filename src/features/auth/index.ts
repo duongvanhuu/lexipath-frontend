@@ -35,6 +35,10 @@ export {
 } from "./components/onboarding-path-preview";
 export { SetupStepCard, type SetupStepCardProps } from "./components/setup-step-card";
 export {
+  LevelChoiceCard,
+  type LevelChoiceCardProps,
+} from "./components/level-choice-card";
+export {
   LanguageChoiceCard,
   type LanguageChoiceCardProps,
 } from "./components/language-choice-card";
@@ -69,6 +73,7 @@ export {
   authKeys,
   useCurrentUser,
   useLoginMutation,
+  useLogoutMutation,
   useRegisterMutation,
 } from "./hooks/use-auth";
 
@@ -84,4 +89,8 @@ export type {
   OnboardingStep,
   OnboardingStepId,
   OnboardingSelection,
+  CefrLevel,
+  JlptLevel,
+  HskLevel,
+  LevelCode,
 } from "./types/auth.types";
