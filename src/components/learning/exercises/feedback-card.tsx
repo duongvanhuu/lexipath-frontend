@@ -58,7 +58,7 @@ function FeedbackCard({
       <div className="flex flex-1 flex-col gap-1">
         <p className="text-base font-semibold">{title ?? DEFAULT_TITLE[state]}</p>
         {explanation ? (
-          <p className="text-sm leading-normal opacity-85">{explanation}</p>
+          <p className="text-sm leading-normal opacity-80">{explanation}</p>
         ) : null}
       </div>
       {onContinue ? (

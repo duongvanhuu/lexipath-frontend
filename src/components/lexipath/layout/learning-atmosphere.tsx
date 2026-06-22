@@ -43,7 +43,7 @@ function LearningAtmosphere({
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-2 sm:px-6 lg:px-8">
         {typeof streak === "number" ? (
           <StatPill
-            icon={<Flame className="size-3.5 text-orange-500" aria-hidden />}
+            icon={<Flame className="size-3.5 text-golden" aria-hidden />}
             label={`${streak} ngày`}
             aria-label={`Streak: ${streak} ngày`}
           />

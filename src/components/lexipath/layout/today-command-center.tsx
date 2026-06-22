@@ -98,7 +98,7 @@ function TodayCommandCenter({
         <MetricTile
           label="Đến hạn"
           value={dueCount}
-          accent={dueCount > 0 ? "default" : "default"}
+          accent="default"
         />
       </div>
 

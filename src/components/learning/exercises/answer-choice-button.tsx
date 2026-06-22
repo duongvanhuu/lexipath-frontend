@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { cva } from "class-variance-authority";
