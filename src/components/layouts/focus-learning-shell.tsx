@@ -1,11 +1,9 @@
-"use client";
+import type * as React from "react";
 
-import * as React from "react";
-import { X } from "lucide-react";
-
-import { IconButton } from "@/components/shared/icon-button";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils/cn";
+
+import { FocusCloseButton } from "./focus-close-button";
 
 export type FocusLearningShellProps = {
   /** Exit handler. When set, a close button is shown on the left. */
@@ -50,9 +48,7 @@ function FocusLearningShell({
         <div className="flex h-14 items-center justify-between gap-4 px-4 sm:px-6">
           <div className="flex min-w-0 flex-1 items-center gap-3">
             {onClose ? (
-              <IconButton variant="quiet" label={closeLabel} onClick={onClose}>
-                <X />
-              </IconButton>
+              <FocusCloseButton onClose={onClose} label={closeLabel} />
             ) : null}
             {pathIndicator}
             {title ? (

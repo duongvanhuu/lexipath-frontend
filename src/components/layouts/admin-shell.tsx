@@ -1,9 +1,5 @@
-"use client";
+import type * as React from "react";
 
-import * as React from "react";
-import { Menu } from "lucide-react";
-
-import { IconButton } from "@/components/shared/icon-button";
 import {
   AdminSidebar,
   getInitials,
@@ -11,13 +7,9 @@ import {
   type UserSummary,
 } from "@/components/shared/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils/cn";
+
+import { AdminMobileNav } from "./admin-mobile-nav";
 
 export type AdminShellProps = {
   logo?: React.ReactNode;
@@ -70,7 +62,6 @@ function AdminShell({
   children,
   className,
 }: AdminShellProps) {
-  const [open, setOpen] = React.useState(false);
   const footer = user ? <SidebarUser user={user} /> : undefined;
 
   return (
@@ -87,24 +78,12 @@ function AdminShell({
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex h-14 shrink-0 items-center justify-between gap-4 border-b border-border bg-card px-4 sm:px-6">
           <div className="flex min-w-0 flex-1 items-center gap-3">
-            <Sheet open={open} onOpenChange={setOpen}>
-              <SheetTrigger asChild className="lg:hidden">
-                <IconButton variant="ghost" label="Mở menu">
-                  <Menu />
-                </IconButton>
-              </SheetTrigger>
-              <SheetContent side="left" className="w-60 gap-0 p-0" showCloseButton={false}>
-                <SheetTitle className="sr-only">Điều hướng quản trị</SheetTitle>
-                <AdminSidebar
-                  logo={logo}
-                  sections={sections}
-                  activeNavId={activeNavId}
-                  footer={footer}
-                  onNavigate={() => setOpen(false)}
-                  className="w-full"
-                />
-              </SheetContent>
-            </Sheet>
+            <AdminMobileNav
+              logo={logo}
+              sections={sections}
+              {...(activeNavId !== undefined ? { activeNavId } : {})}
+              footer={footer}
+            />
             <div className="flex min-w-0 items-center gap-3">{topBarStart}</div>
           </div>
           {topBarActions ? (

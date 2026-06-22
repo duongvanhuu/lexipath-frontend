@@ -1,28 +1,14 @@
-"use client";
-
-import * as React from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { Flame, Menu, Star } from "lucide-react";
+import type * as React from "react";
 
-import { IconButton } from "@/components/shared/icon-button";
 import type { NavItem } from "@/components/shared/navigation";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils/cn";
 
 import type { LearnerChrome } from "./learner-chrome";
-import { AccountMenu, LanguageMenu } from "./learner-account-menu";
-import {
-  GoldenTimeChip,
-  LearnerStatusCluster,
-  StatPill,
-} from "./learner-status-cluster";
+import { AccountMenu } from "./learner-account-menu";
+import { GoldenTimeChip, LearnerStatusCluster } from "./learner-status-cluster";
+import { LearnerMobileNav } from "./learner-mobile-nav";
 
 export type LearnerAppShellProps = LearnerChrome & {
   logo?: React.ReactNode;
@@ -49,8 +35,6 @@ function LearnerAppShell({
   className,
   ...chrome
 }: LearnerAppShellProps) {
-  const [open, setOpen] = React.useState(false);
-
   return (
     <div className={cn("min-h-svh bg-background", className)}>
       <header className="sticky top-0 z-30 border-b border-border bg-card/85 backdrop-blur supports-backdrop-filter:bg-card/70">
@@ -95,63 +79,16 @@ function LearnerAppShell({
             />
 
             {navItems.length > 0 ? (
-              <Sheet open={open} onOpenChange={setOpen}>
-                <SheetTrigger asChild className="lg:hidden">
-                  <IconButton variant="outline" label="Mở menu">
-                    <Menu />
-                  </IconButton>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-72 gap-0 p-0">
-                  <SheetHeader>
-                    <SheetTitle>Điều hướng</SheetTitle>
-                  </SheetHeader>
-                  <nav className="flex flex-col gap-1 px-2">
-                    {navItems.map((item) => {
-                      const active = item.id === activeNavId;
-                      return (
-                        <Link
-                          key={item.id}
-                          href={item.href ?? homeHref}
-                          onClick={() => setOpen(false)}
-                          aria-current={active ? "page" : undefined}
-                          className={cn(
-                            "inline-flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors [&_svg]:size-4",
-                            active
-                              ? "bg-primary-soft text-primary-soft-foreground [&_svg]:text-primary"
-                              : "text-text-secondary hover:bg-surface-muted hover:text-text-primary [&_svg]:text-text-muted"
-                          )}
-                        >
-                          {item.icon}
-                          {item.label}
-                        </Link>
-                      );
-                    })}
-                  </nav>
-                  <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-border p-4">
-                    {typeof chrome.streak === "number" ? (
-                      <StatPill
-                        icon={<Flame aria-hidden />}
-                        className="bg-golden-soft text-golden-foreground"
-                      >
-                        {chrome.streak}
-                      </StatPill>
-                    ) : null}
-                    {typeof chrome.xp === "number" ? (
-                      <StatPill
-                        icon={<Star aria-hidden />}
-                        className="bg-success-soft text-success-foreground"
-                      >
-                        {chrome.xp}
-                      </StatPill>
-                    ) : null}
-                    <LanguageMenu
-                      languages={chrome.languages}
-                      activeLanguage={chrome.activeLanguage}
-                      onLanguageChange={chrome.onLanguageChange}
-                    />
-                  </div>
-                </SheetContent>
-              </Sheet>
+              <LearnerMobileNav
+                navItems={navItems}
+                homeHref={homeHref}
+                {...(activeNavId !== undefined ? { activeNavId } : {})}
+                {...(chrome.streak !== undefined ? { streak: chrome.streak } : {})}
+                {...(chrome.xp !== undefined ? { xp: chrome.xp } : {})}
+                {...(chrome.languages !== undefined ? { languages: chrome.languages } : {})}
+                {...(chrome.activeLanguage !== undefined ? { activeLanguage: chrome.activeLanguage } : {})}
+                {...(chrome.onLanguageChange !== undefined ? { onLanguageChange: chrome.onLanguageChange } : {})}
+              />
             ) : null}
           </div>
         </div>
