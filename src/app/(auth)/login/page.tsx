@@ -2,6 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import type { Route } from "next";
 
 import {
   AuthCard,
@@ -20,6 +22,7 @@ import { Separator } from "@/components/ui/separator";
  * — the form stays API-agnostic; this page owns the call + error mapping.
  */
 export default function LoginPage() {
+  const router = useRouter();
   const login = useLoginMutation();
   const [errorMessage, setErrorMessage] = React.useState<string>();
 
@@ -33,7 +36,7 @@ export default function LoginPage() {
           ? { rememberMe: values.rememberMe }
           : {}),
       });
-      // On success a router push to /dashboard would go here.
+      router.push("/dashboard" as Route);
     } catch (error) {
       setErrorMessage(
         error instanceof ApiError
@@ -52,22 +55,18 @@ export default function LoginPage() {
   return (
     <AuthCard
       logo={<LexiLogo />}
-      title="Đăng nhập"
-      description="Tiếp tục lộ trình học từ vựng của bạn."
+      title="Chào mừng trở lại"
       footer={
         <>
           Chưa có tài khoản?{" "}
           <Link href="/register" className="font-medium text-primary hover:underline">
-            Đăng ký
+            Đăng ký miễn phí
           </Link>
         </>
       }
     >
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2.5">
-          <SocialLoginButton provider="google" onSelect={handleSocial} />
-          <SocialLoginButton provider="apple" onSelect={handleSocial} />
-        </div>
+        <SocialLoginButton provider="google" onSelect={handleSocial} disabled />
 
         <div className="flex items-center gap-3">
           <Separator className="flex-1" />

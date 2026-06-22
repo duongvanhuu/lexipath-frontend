@@ -79,8 +79,8 @@ export default function RegisterPage() {
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2.5">
-          <SocialLoginButton provider="google" onSelect={handleSocial} />
-          <SocialLoginButton provider="apple" onSelect={handleSocial} />
+          <SocialLoginButton provider="google" onSelect={handleSocial} disabled />
+          <SocialLoginButton provider="apple" onSelect={handleSocial} disabled />
         </div>
 
         <div className="flex items-center gap-3">
