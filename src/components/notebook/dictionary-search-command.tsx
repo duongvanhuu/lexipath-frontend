@@ -32,7 +32,12 @@ function DictionarySearchCommand({
   onSelect,
 }: DictionarySearchCommandProps) {
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange}>
+    <CommandDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Tìm từ"
+      description="Tìm từ, kanji hoặc hanzi trong từ điển"
+    >
       <CommandInput
         placeholder="Tìm từ, kanji, hanzi…"
         value={query}

@@ -50,7 +50,11 @@ function AddToLearningDialog({
             <DialogDescription>
               <strong>{word}</strong> — {meaning}
             </DialogDescription>
-          ) : null}
+          ) : (
+            <DialogDescription className="sr-only">
+              Chọn bộ sưu tập để thêm từ {word} vào học
+            </DialogDescription>
+          )}
         </DialogHeader>
         <div className="space-y-3">
           <p className="text-sm font-medium text-text-primary">
