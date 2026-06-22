@@ -37,3 +37,13 @@ next-env.d.ts
 .idea/
 .vscode/*
 !.vscode/extensions.json
+.claude/
+.superpowers/
+
+# design reference (binary assets, not source)
+screenshots/
+database-final.sql
+
+# internal planning docs
+CODE_REVIEW.md
+docs/superpowers/
