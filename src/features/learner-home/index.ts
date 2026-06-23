@@ -1,10 +1,18 @@
 export type { HomeUserData } from "./mock-data";
 export {
   MOCK_HOME_USER,
+  // Legacy
   MOCK_NEXT_BEST_STEP,
   MOCK_TODAY_SESSION,
   MOCK_TODAY_PATH,
   MOCK_GOLDEN_TIME,
   MOCK_SKILL_LANES,
   MOCK_INSIGHTS,
+  // v22
+  MOCK_HOME_HERO,
+  MOCK_HOME_JOURNEY,
+  MOCK_HOME_GOLDEN,
+  MOCK_HOME_SKILLS,
+  MOCK_HOME_COLLECTION,
+  MOCK_HOME_WEEK,
 } from "./mock-data";

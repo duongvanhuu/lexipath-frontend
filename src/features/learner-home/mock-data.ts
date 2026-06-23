@@ -6,6 +6,13 @@ import type { LearningInsightCardProps } from "@/components/lexipath/insights/le
 import type { SkillLaneData } from "@/components/lexipath";
 import type { LanguageCode } from "@/features/auth/types/auth.types";
 
+import type { HomeHeroProps } from "./components/home-hero";
+import type { HomeJourneyRailProps } from "./components/home-journey-rail";
+import type { HomeGoldenSummaryProps } from "./components/home-golden-summary";
+import type { HomeSkillStat } from "./components/home-skill-lanes";
+import type { HomeCollectionData } from "./components/home-collection-card";
+import type { HomeWeeklyActivityProps } from "./components/home-weekly-activity";
+
 /* -------------------------------------------------------------------------- */
 /* User                                                                        */
 /* -------------------------------------------------------------------------- */
@@ -21,7 +28,7 @@ export const MOCK_HOME_USER: HomeUserData = {
 };
 
 /* -------------------------------------------------------------------------- */
-/* Next best step                                                               */
+/* Legacy mocks (kept for backward-compat with other pages)                   */
 /* -------------------------------------------------------------------------- */
 
 export const MOCK_NEXT_BEST_STEP: NextBestStepCardProps = {
@@ -36,10 +43,6 @@ export const MOCK_NEXT_BEST_STEP: NextBestStepCardProps = {
   reason: "overdue",
 };
 
-/* -------------------------------------------------------------------------- */
-/* Today session                                                                */
-/* -------------------------------------------------------------------------- */
-
 export const MOCK_TODAY_SESSION: TodayCommandCenterProps = {
   reviewedCount: 24,
   learnedCount: 8,
@@ -49,10 +52,6 @@ export const MOCK_TODAY_SESSION: TodayCommandCenterProps = {
   nextLabel: "Ôn tập ngay",
 };
 
-/* -------------------------------------------------------------------------- */
-/* Today path                                                                   */
-/* -------------------------------------------------------------------------- */
-
 export const MOCK_TODAY_PATH: TodayPathProps = {
   title: "Lộ trình hôm nay",
   currentLabel: "Unit 4 — Từ vựng chủ đề Du lịch",
@@ -61,20 +60,12 @@ export const MOCK_TODAY_PATH: TodayPathProps = {
   href: "/learning",
 };
 
-/* -------------------------------------------------------------------------- */
-/* Golden Time                                                                  */
-/* -------------------------------------------------------------------------- */
-
 export const MOCK_GOLDEN_TIME: GoldenTimeWindowProps = {
   windowOpen: true,
   closeAt: "22:00",
   queueCount: 12,
   reasons: ["post_session", "forgetting_curve"],
 };
-
-/* -------------------------------------------------------------------------- */
-/* Skill lanes                                                                  */
-/* -------------------------------------------------------------------------- */
 
 export const MOCK_SKILL_LANES: SkillLaneData[] = [
   { skill: "meaning",     masteredCount: 58, totalCount: 80, accuracyPct: 87 },
@@ -83,10 +74,6 @@ export const MOCK_SKILL_LANES: SkillLaneData[] = [
   { skill: "usage",       masteredCount: 45, totalCount: 80, accuracyPct: 78 },
   { skill: "collocation", masteredCount: 12, totalCount: 80, accuracyPct: 55 },
 ];
-
-/* -------------------------------------------------------------------------- */
-/* Insight metrics                                                              */
-/* -------------------------------------------------------------------------- */
 
 export const MOCK_INSIGHTS: LearningInsightCardProps[] = [
   {
@@ -118,3 +105,136 @@ export const MOCK_INSIGHTS: LearningInsightCardProps[] = [
     trend: "flat",
   },
 ];
+
+/* -------------------------------------------------------------------------- */
+/* v22 Home: Hero                                                              */
+/* -------------------------------------------------------------------------- */
+
+export const MOCK_HOME_HERO: HomeHeroProps = {
+  name: "An Nhiên",
+  langLabel: "Tiếng Anh",
+  greeting: "Hôm nay luyện tiếng Anh 10 phút nhé?",
+  streak: 8,
+  xpToday: 90,
+  dailyDone: 6,
+  dailyTarget: 15,
+  dailyUnit: "từ",
+  cta: {
+    isGolden: true,
+    goldenDue: 10,
+    goldenOverdue: 2,
+    goldenMins: 5,
+    lessonDone: 5,
+    lessonTotal: 12,
+    lessonUnit: "từ",
+    lessonTitle: "Bài 5 — Business & Office Vocabulary",
+    lessonMins: 6,
+    learnHref: "/learning",
+    reviewHref: "/golden-time",
+  },
+};
+
+/* -------------------------------------------------------------------------- */
+/* v22 Home: Journey rail                                                      */
+/* -------------------------------------------------------------------------- */
+
+export const MOCK_HOME_JOURNEY: HomeJourneyRailProps = {
+  lessonTitle: "Bài 5 — Business & Office",
+  steps: [
+    {
+      id: "learn",
+      label: "Học từ mới",
+      sub: "5/12 từ",
+      state: "current",
+      ctaLabel: "Tiếp tục",
+      ctaHref: "/learning",
+      isGolden: false,
+    },
+    {
+      id: "practice",
+      label: "Luyện tập",
+      sub: "Bài tập kỹ năng",
+      state: "available",
+    },
+    {
+      id: "golden",
+      label: "Ôn Golden Time",
+      sub: "10 từ · ~5'",
+      state: "due",
+      ctaLabel: "Ôn ngay",
+      ctaHref: "/golden-time",
+      isGolden: true,
+    },
+    {
+      id: "done",
+      label: "Đích hôm nay",
+      sub: "Mục tiêu 15 từ",
+      state: "locked",
+    },
+  ],
+};
+
+/* -------------------------------------------------------------------------- */
+/* v22 Home: Golden summary                                                    */
+/* -------------------------------------------------------------------------- */
+
+export const MOCK_HOME_GOLDEN: HomeGoldenSummaryProps = {
+  due: 10,
+  overdue: 2,
+  mins: 5,
+  skills: [
+    { label: "Nhớ nghĩa",  count: 4, icon: "lightbulb"      },
+    { label: "Nghe hiểu",  count: 3, icon: "headphones"     },
+    { label: "Chính tả",   count: 2, icon: "type"           },
+    { label: "Cách dùng",  count: 1, icon: "message-circle" },
+  ],
+  queueHref: "/golden-time",
+};
+
+/* -------------------------------------------------------------------------- */
+/* v22 Home: Skill stats                                                       */
+/* -------------------------------------------------------------------------- */
+
+export const MOCK_HOME_SKILLS: HomeSkillStat[] = [
+  { skill: "meaning",     pct: 75 },
+  { skill: "listening",   pct: 52 },
+  { skill: "spelling",    pct: 68 },
+  { skill: "usage",       pct: 82 },
+  { skill: "collocation", pct: 60 },
+];
+
+/* -------------------------------------------------------------------------- */
+/* v22 Home: Current collection                                                */
+/* -------------------------------------------------------------------------- */
+
+export const MOCK_HOME_COLLECTION: HomeCollectionData = {
+  id: "toeic",
+  glyph: "T",
+  glyphBg: "bg-info-soft",
+  glyphColor: "text-blue-600",
+  title: "1000 từ TOEIC",
+  currentLesson: "Bài 5 — Business & Office Vocabulary",
+  done: 5,
+  total: 12,
+  unit: "từ",
+  nextLesson: "Bài 6 — Finance & Banking",
+  collectionHref: "/collections/toeic",
+  mapHref: "/collections/toeic/map",
+};
+
+/* -------------------------------------------------------------------------- */
+/* v22 Home: Weekly activity                                                   */
+/* -------------------------------------------------------------------------- */
+
+export const MOCK_HOME_WEEK: HomeWeeklyActivityProps = {
+  days: [
+    { label: "T2", xp: 90,  active: true  },
+    { label: "T3", xp: 75,  active: true  },
+    { label: "T4", xp: 110, active: true  },
+    { label: "T5", xp: 0,   active: false },
+    { label: "T6", xp: 95,  active: true  },
+    { label: "T7", xp: 80,  active: true  },
+    { label: "CN", xp: 90,  active: true, isToday: true },
+  ],
+  xpTotal: 540,
+};
