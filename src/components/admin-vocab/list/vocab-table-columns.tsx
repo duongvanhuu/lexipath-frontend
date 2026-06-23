@@ -44,8 +44,6 @@ function getVocabStatusClassName(status: VocabStatus): string {
 // ── column-factory options ────────────────────────────────────────────────────
 
 export interface VocabTableColumnsOptions {
-  selectedIds: string[];
-  onToggleSelect: (id: string) => void;
   onOpenQuickView: (item: VocabItem) => void;
   onEdit: (item: VocabItem) => void;
   onDuplicate: (item: VocabItem) => void;
@@ -60,8 +58,7 @@ export interface VocabTableColumnsOptions {
  * Returns TanStack Table column definitions for the admin vocab list.
  *
  * Note: AdminDataTable prepends its own __select__ checkbox column automatically,
- * so this factory does NOT include a select column — the selectedIds / onToggleSelect
- * options are kept for external callers that manage selection state independently.
+ * so this factory does NOT include a select column.
  */
 export function createVocabTableColumns(
   options: VocabTableColumnsOptions
@@ -271,7 +268,8 @@ export function createVocabTableColumns(
       cell: ({ row }) => {
         const item = row.original;
         return (
-          <div
+          <span
+            role="none"
             className="flex items-center gap-1"
             onClick={(e) => e.stopPropagation()}
           >
@@ -292,7 +290,7 @@ export function createVocabTableColumns(
               onPublish={onPublish}
               onArchive={onArchive}
             />
-          </div>
+          </span>
         );
       },
     },
