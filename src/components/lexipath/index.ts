@@ -34,6 +34,8 @@ export { LearningRoutePreview } from "./path/learning-route-preview";
 export { GoldenTimeWindow } from "./golden-time/golden-time-window";
 export { GoldenQueuePreview } from "./golden-time/golden-queue-preview";
 export { ReviewReasonChip } from "./golden-time/review-reason-chip";
+export { GoldenTimeDashboardHero } from "./golden-time/golden-time-dashboard-hero";
+export { TodaySchedulePanel } from "./golden-time/today-schedule-panel";
 
 // Skills
 export { SkillProgressLane } from "./skills/skill-progress-lane";
