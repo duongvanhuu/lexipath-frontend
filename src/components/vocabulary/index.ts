@@ -28,3 +28,34 @@ export {
   type VocabItemDetailPanelProps,
   type VocabItemDetailPanelItem,
 } from "./vocab-item-detail-panel";
+
+// Language modules (vocab detail)
+export { LangModuleJa, type LangModuleJaProps } from "./lang-module-ja";
+export { LangModuleEn, type LangModuleEnProps } from "./lang-module-en";
+export { LangModuleZh, type LangModuleZhProps } from "./lang-module-zh";
+
+// Dictionary search UI
+export {
+  DictionarySearchPanel,
+  type DictionarySearchPanelProps,
+} from "./dictionary-search-panel";
+export {
+  DictionaryResultCard,
+  type DictionaryResultCardProps,
+} from "./dictionary-result-card";
+export {
+  DictionaryResultList,
+  type DictionaryResultListProps,
+} from "./dictionary-result-list";
+export {
+  DictionaryBeforeSearch,
+  type DictionaryBeforeSearchProps,
+} from "./dictionary-before-search";
+export {
+  DictionaryEmptyState,
+  type DictionaryEmptyStateProps,
+} from "./dictionary-empty-state";
+export {
+  DictionarySuggestionBanner,
+  type DictionarySuggestionBannerProps,
+} from "./dictionary-suggestion-banner";
