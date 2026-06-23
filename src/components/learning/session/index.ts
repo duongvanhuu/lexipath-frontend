@@ -10,3 +10,11 @@ export {
   SessionSummaryCard,
   type SessionSummaryCardProps,
 } from "./session-summary-card";
+export {
+  ExerciseRenderer,
+  type ExerciseRendererProps,
+} from "./exercise-renderer";
+export {
+  LearningSessionSummary,
+  type LearningSessionSummaryProps,
+} from "./learning-session-summary";
