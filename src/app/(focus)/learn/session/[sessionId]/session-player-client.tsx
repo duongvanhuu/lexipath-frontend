@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import type { Route } from "next";
 
 import { FocusLearningShell } from "@/components/layouts";
 import { ExitSessionDialog } from "@/components/learning/session/exit-session-dialog";
@@ -99,7 +100,7 @@ export function SessionPlayerClient({
   }, []);
 
   function handleExit() {
-    const returnHref = meta.returnHref ?? "/dashboard";
+    const returnHref = (meta.returnHref ?? "/dashboard") as Route;
     router.push(returnHref);
   }
 

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import type { Route } from "next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, Lock } from "lucide-react";
@@ -27,7 +28,7 @@ export type LoginFormProps = {
   /** Server-side error message (e.g. mapped from `ApiError`). */
   errorMessage?: string;
   /** Href for "Quên mật khẩu?" — defaults to /forgot-password. */
-  forgotPasswordHref?: string;
+  forgotPasswordHref?: Route;
 };
 
 /**
@@ -38,7 +39,7 @@ function LoginForm({
   onSubmit,
   isSubmitting,
   errorMessage,
-  forgotPasswordHref = "/forgot-password",
+  forgotPasswordHref = "/forgot-password" as Route,
 }: LoginFormProps) {
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
