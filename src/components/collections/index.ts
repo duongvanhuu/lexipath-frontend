@@ -48,3 +48,30 @@ export type { SkillCoverageSectionProps } from "./skill-coverage-section";
 
 export { VocabPreviewGrid } from "./vocab-preview-grid";
 export type { VocabPreviewGridProps } from "./vocab-preview-grid";
+
+export { CollectionMiniRoadmap } from "./collection-mini-roadmap";
+export type { CollectionMiniRoadmapProps } from "./collection-mini-roadmap";
+
+export { CollectionListHeroCard } from "./collection-list-hero-card";
+export type { CollectionListHeroCardProps } from "./collection-list-hero-card";
+
+export { CollectionListCompactCard } from "./collection-list-compact-card";
+export type { CollectionListCompactCardProps } from "./collection-list-compact-card";
+
+export { CollectionListProCard } from "./collection-list-pro-card";
+export type { CollectionListProCardProps } from "./collection-list-pro-card";
+
+export { CollectionProgressSummary } from "./collection-progress-summary";
+export type { CollectionProgressSummaryProps } from "./collection-progress-summary";
+
+export { CollectionLearningPromise } from "./collection-learning-promise";
+export type {
+  CollectionLearningPromiseProps,
+  LearningPromiseData,
+} from "./collection-learning-promise";
+
+export { LessonProgressSummary } from "./lesson-progress-summary";
+export type { LessonProgressSummaryProps } from "./lesson-progress-summary";
+
+export { LessonActionPanel } from "./lesson-action-panel";
+export type { LessonActionPanelProps } from "./lesson-action-panel";
