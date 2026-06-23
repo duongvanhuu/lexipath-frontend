@@ -103,6 +103,11 @@ export function ExamTestDetailView({
               Mới
             </span>
           )}
+          {test.featured && (
+            <span className="inline-flex items-center rounded-full bg-warning-soft px-2.5 py-0.5 text-[11px] font-bold text-warning-foreground">
+              ⭐ Nổi bật
+            </span>
+          )}
           {isLocked && (
             <span className="inline-flex items-center gap-1 rounded-full bg-warning-soft px-2.5 py-0.5 text-[11px] font-bold text-warning-foreground">
               <Star className="size-2.5" aria-hidden />
@@ -137,6 +142,21 @@ export function ExamTestDetailView({
             <BarChart2 className="size-4" aria-hidden />
             <strong className="text-text-primary">{test.level}</strong>
           </span>
+          {test.skills.length > 0 && (
+            <>
+              <span className="h-4 w-px bg-border" aria-hidden />
+              <span className="flex flex-wrap items-center gap-1">
+                {test.skills.map((s) => (
+                  <span
+                    key={s}
+                    className="inline-flex rounded-full bg-surface-muted px-2 py-0.5 text-[11px] font-medium text-text-secondary"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </span>
+            </>
+          )}
         </div>
 
         {/* Phase 1 actions */}
