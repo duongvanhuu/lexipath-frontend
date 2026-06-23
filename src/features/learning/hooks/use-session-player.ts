@@ -152,7 +152,7 @@ export function useSessionPlayer(
     setFeedbackState(result);
     setAnswerState(toAnswerState(result));
     if (result === "correct") setCorrectCount((c) => c + 1);
-    else setIncorrectCount((c) => c + 1);
+    else if (result === "incorrect") setIncorrectCount((c) => c + 1);
 
     if (!current) return;
     const exerciseId = current.id;

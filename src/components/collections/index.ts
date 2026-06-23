@@ -33,3 +33,18 @@ export type { LessonRoadmapItemProps } from "./lesson-roadmap-item";
 
 export { LessonCheckpointRow } from "./lesson-checkpoint-row";
 export type { LessonCheckpointRowProps } from "./lesson-checkpoint-row";
+
+export { CollectionDetailHero } from "./collection-detail-hero";
+export type { CollectionDetailHeroProps } from "./collection-detail-hero";
+
+export { CollectionLessonRoadmap } from "./collection-lesson-roadmap";
+export type { CollectionLessonRoadmapProps } from "./collection-lesson-roadmap";
+
+export { LessonDetailHero } from "./lesson-detail-hero";
+export type { LessonDetailHeroProps } from "./lesson-detail-hero";
+
+export { SkillCoverageSection } from "./skill-coverage-section";
+export type { SkillCoverageSectionProps } from "./skill-coverage-section";
+
+export { VocabPreviewGrid } from "./vocab-preview-grid";
+export type { VocabPreviewGridProps } from "./vocab-preview-grid";

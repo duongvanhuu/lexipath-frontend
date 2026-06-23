@@ -87,12 +87,14 @@ function getAccuracySubtitle(accuracy: number): string {
 function getWeakestSkill(
   breakdown: SessionSkillBreakdownItem[]
 ): SessionSkillBreakdownItem | null {
-  const sorted = [...breakdown].sort(
-    (a, b) => a.correct / a.total - b.correct / b.total
-  );
+  const sorted = [...breakdown].sort((a, b) => {
+    const accA = a.total > 0 ? a.correct / a.total : 0;
+    const accB = b.total > 0 ? b.correct / b.total : 0;
+    return accA - accB;
+  });
   const weakest = sorted[0];
   if (!weakest) return null;
-  const acc = weakest.correct / weakest.total;
+  const acc = weakest.total > 0 ? weakest.correct / weakest.total : 0;
   return acc < 0.6 ? weakest : null;
 }
 

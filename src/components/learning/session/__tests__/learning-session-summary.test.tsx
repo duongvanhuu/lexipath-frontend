@@ -109,6 +109,18 @@ describe("LearningSessionSummary — skill breakdown", () => {
       screen.queryByText("Kỹ năng trong buổi học")
     ).not.toBeInTheDocument();
   });
+
+  it("does not crash when a skill item has total === 0", () => {
+    render(
+      <LearningSessionSummary
+        {...BASE_PROPS}
+        skillBreakdown={[{ skill: "meaning", label: "Ý nghĩa", correct: 0, total: 0 }]}
+      />
+    );
+    // When total === 0, accuracy becomes 0, which is < 0.6, so it's treated as weak
+    expect(screen.getByText(/cần ôn thêm/)).toBeInTheDocument();
+    expect(screen.getByText("Ý nghĩa")).toBeInTheDocument();
+  });
 });
 
 describe("LearningSessionSummary — weak area hint", () => {
