@@ -5,9 +5,17 @@ export interface NotebookItem {
   word: string;
   reading?: string;
   meaning?: string;
-  status?: "new" | "learning" | "review" | "mastered" | "locked";
+  status?: "new" | "learning" | "review" | "mastered" | "locked" | "forgetting";
   statusLabel?: string;
   addedAt?: string;
+  /** Language code for CJK font sizing */
+  lang?: "ja" | "en" | "zh";
+  /** Urgency level for the colored dot on the left edge */
+  urgency?: "overdue" | "due";
+  /** Short review tag, e.g. "Ôn ngay" or "Hôm nay 18:00" */
+  reviewLabel?: string;
+  /** Weak skill name, e.g. "Cách dùng" */
+  weakSkillLabel?: string;
 }
 
 export interface NotebookTab {
