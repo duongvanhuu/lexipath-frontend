@@ -99,6 +99,7 @@ export function VocabListClient({ initialItems }: VocabListClientProps) {
         status: "draft",
         updatedAt: new Date(ts).toISOString(),
         isAiGenerated: false,
+        isValid: false,
         issues: [],
       };
       return [copy, ...prev];
