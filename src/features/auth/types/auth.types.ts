@@ -93,8 +93,11 @@ export type OnboardingStep = {
 /** The choices accumulated across onboarding, used to preview the path. */
 export type OnboardingSelection = {
   language?: LanguageCode;
-  goal?: LearningGoal;
+  /** Language-specific goal ID (e.g. "ielts", "jlpt-n5", "hsk1"). */
+  goal?: string;
   levelCode?: LevelCode;
+  /** Target certification (e.g. "IELTS 7.0+", "JLPT N3"). Optional. */
+  targetCert?: string;
   dailyGoal?: number;
   scriptId?: string;
 };

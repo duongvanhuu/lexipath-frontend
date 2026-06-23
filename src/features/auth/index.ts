@@ -23,6 +23,10 @@ export {
   type OnboardingJourneyShellProps,
 } from "./components/onboarding-journey-shell";
 export {
+  OnboardingLearningPath,
+  type OnboardingLearningPathProps,
+} from "./components/onboarding-learning-path";
+export {
   OnboardingStepLayout,
   type OnboardingStepLayoutProps,
 } from "./components/onboarding-step-layout";
