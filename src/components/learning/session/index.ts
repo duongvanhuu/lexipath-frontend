@@ -18,3 +18,7 @@ export {
   LearningSessionSummary,
   type LearningSessionSummaryProps,
 } from "./learning-session-summary";
+export {
+  GoldenTimeSessionSummary,
+  type GoldenTimeSessionSummaryProps,
+} from "./golden-time-session-summary";

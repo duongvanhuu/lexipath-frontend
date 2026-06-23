@@ -7,7 +7,7 @@ import { Zap } from "lucide-react";
 
 import { FocusLearningShell } from "@/components/layouts";
 import { ExitSessionDialog } from "@/components/learning/session/exit-session-dialog";
-import { LearningSessionSummary } from "@/components/learning/session/learning-session-summary";
+import { GoldenTimeSessionSummary } from "@/components/learning/session/golden-time-session-summary";
 import { GoldenTimeExerciseRenderer } from "@/components/learning/session/golden-time-exercise-renderer";
 import { useSessionPlayer } from "@/features/learning/hooks/use-session-player";
 import type { GoldenTimeExercise } from "@/features/golden-time/session/golden-time-session.types";
@@ -149,8 +149,7 @@ export function GoldenTimeSessionClient({
       ) : null}
 
       {player.phase === "summary" ? (
-        <LearningSessionSummary
-          lessonTitle={`Golden Time · ${meta.queueCount} từ`}
+        <GoldenTimeSessionSummary
           correctCount={player.correctCount}
           incorrectCount={player.incorrectCount}
           totalXp={player.totalXp}
