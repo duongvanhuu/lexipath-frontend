@@ -39,7 +39,7 @@ const ADMIN_NAV: NavSection[] = [
         id: "admin-vocab",
         label: "Từ vựng",
         icon: <BookOpen aria-hidden />,
-        href: "/admin/vocabulary" as Route,
+        href: "/admin/vocab" as Route,
       },
       {
         id: "admin-collections",
@@ -95,7 +95,7 @@ const ADMIN_NAV: NavSection[] = [
 
 function getActiveNavId(pathname: string): string {
   if (pathname === "/admin") return "admin-dashboard";
-  if (pathname.startsWith("/admin/vocabulary")) return "admin-vocab";
+  if (pathname.startsWith("/admin/vocab")) return "admin-vocab";
   if (pathname.startsWith("/admin/collections")) return "admin-collections";
   if (pathname.startsWith("/admin/exam")) return "admin-exam";
   if (pathname.startsWith("/admin/questions")) return "admin-questions";
