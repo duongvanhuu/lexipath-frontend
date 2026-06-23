@@ -7,6 +7,12 @@ export type LessonDetailStatus =
   | "due"
   | "weak";
 
+export type LearningPromise = {
+  forWho: string[];
+  willLearn: string[];
+  willAchieve: string[];
+};
+
 export interface CollectionDetail {
   id: string;
   title: string;
@@ -27,6 +33,8 @@ export interface CollectionDetail {
   reviewDue: number;
   averageAccuracy: number;
   lastStudiedAt?: string;
+  skills?: string[];
+  learningPromise?: LearningPromise;
 }
 
 export interface LessonDetail {

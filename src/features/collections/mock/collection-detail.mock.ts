@@ -24,6 +24,24 @@ export const MOCK_COLLECTION_DETAIL: CollectionDetail = {
   reviewDue: 12,
   averageAccuracy: 78,
   lastStudiedAt: "Hôm nay",
+  skills: ["Vocabulary", "Listening", "Recall", "Spelling", "Usage"],
+  learningPromise: {
+    forWho: [
+      "Người mới bắt đầu học tiếng Nhật",
+      "Ai muốn thi JLPT N5",
+      "Người yêu thích văn hóa Nhật",
+    ],
+    willLearn: [
+      "72 từ vựng N5 thiết yếu theo chủ đề",
+      "Từ vựng theo ngữ cảnh đời sống thực tế",
+      "Cách đọc kana và phát âm chuẩn",
+    ],
+    willAchieve: [
+      "Đủ vốn từ để vượt qua JLPT N5",
+      "Giao tiếp cơ bản tại Nhật Bản",
+      "Nền tảng tốt để học lên N4",
+    ],
+  },
 };
 
 export const MOCK_LESSONS: LessonDetail[] = [
