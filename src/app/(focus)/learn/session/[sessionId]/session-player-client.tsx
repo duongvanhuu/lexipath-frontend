@@ -58,7 +58,9 @@ export function SessionPlayerClient({
           if (!p.flashcardFlipped) {
             p.flipFlashcard(true);
           } else {
+            // Submit (records correct) + advance in one batch — no intermediate feedback step
             p.submit();
+            p.advance();
           }
         }
         return;

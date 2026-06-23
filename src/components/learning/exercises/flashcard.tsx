@@ -27,6 +27,7 @@ export type FlashcardProps = {
   example?: string;
   exampleTranslation?: string;
   pos?: string;
+  hint?: string;
   lang?: string;
   isFlipped?: boolean;
   onFlip?: (flipped: boolean) => void;
@@ -44,6 +45,7 @@ function Flashcard({
   example,
   exampleTranslation,
   pos,
+  hint,
   lang = "ja-JP",
   isFlipped: controlledFlipped,
   onFlip,
@@ -71,21 +73,6 @@ function Flashcard({
       speakWord(word, lang, slow);
     }
   }
-
-  const highlightedExample = React.useMemo(() => {
-    if (!example || !word) return example;
-    const parts = example.split(word);
-    if (parts.length < 2) return example;
-    return (
-      <>
-        {parts[0]}
-        <strong className="border-b-2 border-primary pb-px text-primary">
-          {word}
-        </strong>
-        {parts.slice(1).join(word)}
-      </>
-    );
-  }, [example, word]);
 
   return (
     <div
@@ -132,19 +119,27 @@ function Flashcard({
         {/* Front */}
         <div
           className={cn(
-            "absolute inset-0 flex flex-col items-center justify-center gap-5 p-8 text-center transition-all duration-300",
+            "absolute inset-0 flex flex-col items-center justify-center gap-4 p-8 text-center transition-all duration-300",
             isFlipped
               ? "pointer-events-none -translate-y-2 opacity-0"
               : "translate-y-0 opacity-100"
           )}
         >
-          <div className="flex h-32 w-48 shrink-0 items-center justify-center rounded-md bg-muted text-text-muted" />
-          <div className="text-2xl leading-snug text-text-primary">
-            {highlightedExample ?? word}
+          <div className="text-xs font-semibold uppercase tracking-widest text-text-muted">
+            Từ mới · Làm quen
           </div>
-          {exampleTranslation ? (
-            <div className="text-sm text-text-secondary">
-              {exampleTranslation}
+          <div className="text-6xl font-bold tracking-tight text-text-primary">
+            {word}
+          </div>
+          {reading ? (
+            <div className="text-xl text-text-secondary">{reading}</div>
+          ) : null}
+          {ipa ? (
+            <div className="font-mono text-base text-text-muted">{ipa}</div>
+          ) : null}
+          {pos ? (
+            <div className="text-xs uppercase tracking-wide text-text-muted">
+              {pos}
             </div>
           ) : null}
           <div className="absolute bottom-4 text-xs text-text-muted">
@@ -179,8 +174,17 @@ function Flashcard({
             {meaning}
           </div>
           {example ? (
-            <div className="mt-2 max-w-sm text-base leading-relaxed text-text-secondary">
-              {example}
+            <div className="mt-2 max-w-sm rounded-md bg-muted/50 px-4 py-2.5 text-sm leading-relaxed text-text-secondary">
+              <div>{example}</div>
+              {exampleTranslation ? (
+                <div className="mt-1 text-text-muted">{exampleTranslation}</div>
+              ) : null}
+            </div>
+          ) : null}
+          {hint ? (
+            <div className="flex items-start gap-2 max-w-sm text-left text-xs text-text-muted">
+              <span className="shrink-0 text-base">💡</span>
+              <span className="leading-relaxed">{hint}</span>
             </div>
           ) : null}
         </div>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Sparkles } from "lucide-react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { LexiButton } from "@/components/shared";
@@ -213,6 +213,19 @@ function LearningSessionSummary({
             </p>
           </div>
         )
+      ) : null}
+
+      {/* Golden Time scheduling note */}
+      {correctCount > 0 ? (
+        <div className="flex items-center gap-3 rounded-md bg-golden-soft px-4 py-3">
+          <Sparkles
+            className="size-4 shrink-0 text-golden-foreground"
+            aria-hidden
+          />
+          <p className="text-sm text-golden-foreground">
+            {correctCount} từ đã được lên lịch ôn đúng thời điểm qua Golden Time.
+          </p>
+        </div>
       ) : null}
 
       {/* CTAs */}

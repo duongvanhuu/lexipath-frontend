@@ -158,19 +158,31 @@ function ExerciseRenderer({
             {...(exercise.exampleTranslation !== undefined
               ? { exampleTranslation: exercise.exampleTranslation }
               : {})}
+            {...(exercise.hint !== undefined ? { hint: exercise.hint } : {})}
           />
-          {flashcardFlipped && !isAnswered ? (
-            <LexiButton variant="nextStep" fullWidth onClick={onSubmit}>
-              Tiếp tục
+          {flashcardFlipped ? (
+            <LexiButton
+              variant="nextStep"
+              fullWidth
+              onClick={() => {
+                onSubmit();
+                onContinue();
+              }}
+            >
+              Tiếp tục luyện tập
             </LexiButton>
-          ) : null}
-          {isAnswered ? (
-            <Feedback
-              feedbackState={feedbackState}
-              explanation={feedbackExplanation}
-              onContinue={onContinue}
-            />
-          ) : null}
+          ) : (
+            <button
+              type="button"
+              className="mt-1 self-center text-sm text-text-muted underline underline-offset-4 hover:text-text-secondary"
+              onClick={() => {
+                onSubmit();
+                onContinue();
+              }}
+            >
+              Mình đã biết từ này
+            </button>
+          )}
         </>
       )}
 

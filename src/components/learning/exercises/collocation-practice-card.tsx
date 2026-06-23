@@ -36,7 +36,7 @@ function CollocationPracticeCard({
         <p className="mb-2 text-sm text-text-secondary">{prompt}</p>
       ) : null}
       <div className="mb-5 text-2xl font-bold text-text-primary">
-        ___ + {baseWord}
+        {baseWord} + ___
       </div>
       <div className="flex flex-wrap justify-center gap-2">
         {options.map((opt, i) => {
