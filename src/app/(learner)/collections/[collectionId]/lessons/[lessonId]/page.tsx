@@ -3,7 +3,9 @@ import type { Metadata } from "next";
 
 import { PageJourneyHeader } from "@/components/lexipath";
 import {
+  LessonActionPanel,
   LessonDetailHero,
+  LessonProgressSummary,
   SkillCoverageSection,
   VocabPreviewGrid,
 } from "@/components/collections";
@@ -59,8 +61,14 @@ export default async function LessonDetailPage({ params }: Props) {
       {/* Hero: status, meta, progress, CTA */}
       <LessonDetailHero lesson={lesson} />
 
+      {/* Progress summary tiles */}
+      <LessonProgressSummary lesson={lesson} />
+
       {/* Skill coverage lanes */}
       <SkillCoverageSection skillLanes={lesson.skillLanes} />
+
+      {/* Learning action block */}
+      <LessonActionPanel lesson={lesson} />
 
       {/* Vocab preview grid */}
       <VocabPreviewGrid items={lesson.vocabPreviewItems} />
