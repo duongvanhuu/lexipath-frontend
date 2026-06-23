@@ -9,6 +9,7 @@ import {
   SkillLaneGroup,
   PageJourneyHeader,
   LearningInsightCard,
+  ReviewReasonLegend,
 } from "@/components/lexipath";
 
 import {
@@ -31,6 +32,10 @@ export default function GoldenTimePage() {
     queue,
     schedule,
     skillLanes,
+    estimatedMinutes,
+    weakSkillLabel,
+    goalDone,
+    goalTotal,
   } = MOCK_GOLDEN_TIME_DASHBOARD;
 
   const isEmpty = queueCount === 0;
@@ -57,6 +62,10 @@ export default function GoldenTimePage() {
         windowOpen={windowOpen}
         {...(closeAt !== undefined ? { closeAt } : {})}
         startHref="/golden-time/session"
+        {...(estimatedMinutes !== undefined ? { estimatedMinutes } : {})}
+        {...(weakSkillLabel !== undefined ? { weakSkillLabel } : {})}
+        {...(goalDone !== undefined ? { goalDone } : {})}
+        {...(goalTotal !== undefined ? { goalTotal } : {})}
       />
 
       {/* Empty state — no words due */}
@@ -91,7 +100,7 @@ export default function GoldenTimePage() {
             <TodaySchedulePanel items={schedule} />
           </div>
 
-          {/* Right column — status + skills + insights */}
+          {/* Right column — status + skills + reasons + insights */}
           <div className="flex flex-col gap-5 lg:col-span-5">
 
             {/* GoldenTimeWindow: desktop only */}
@@ -105,6 +114,8 @@ export default function GoldenTimePage() {
             </div>
 
             <SkillLaneGroup title="Kỹ năng trong hàng chờ" lanes={skillLanes} />
+
+            <ReviewReasonLegend />
 
             <div className="grid grid-cols-2 gap-3">
               {MOCK_GOLDEN_TIME_INSIGHTS.map((insight) => (

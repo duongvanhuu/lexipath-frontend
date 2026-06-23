@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import type { Route } from "next";
-import { Zap } from "lucide-react";
+import { AlarmClock, Zap } from "lucide-react";
 
 import { FocusLearningShell } from "@/components/layouts";
 import { ExitSessionDialog } from "@/components/learning/session/exit-session-dialog";
@@ -103,6 +103,19 @@ export function GoldenTimeSessionClient({
     router.push(returnHref);
   }
 
+  function handleGoHome() {
+    router.push("/dashboard" as Route);
+  }
+
+  function handleReviewWeak() {
+    const returnHref = (meta.returnHref ?? "/golden-time") as Route;
+    router.push(returnHref);
+  }
+
+  function handleViewNotebook() {
+    router.push("/notebook" as Route);
+  }
+
   const goldenBadge = (
     <span
       aria-hidden
@@ -120,6 +133,8 @@ export function GoldenTimeSessionClient({
 
   const currentExercise = player.current as GoldenTimeExercise | undefined;
 
+  const windowMessage = meta.windowMessage;
+
   return (
     <FocusLearningShell
       onClose={player.openExitDialog}
@@ -129,6 +144,14 @@ export function GoldenTimeSessionClient({
       progress={player.phase === "summary" ? 100 : player.progressPercent}
       meta={player.phase === "playing" ? metaSlot : undefined}
     >
+      {/* Window message context strip */}
+      {windowMessage && player.phase === "playing" ? (
+        <div className="mb-6 flex items-center gap-2 rounded-md border border-golden/25 bg-golden-soft/50 px-4 py-2 text-xs text-golden-foreground">
+          <AlarmClock className="size-3.5 shrink-0" aria-hidden />
+          <span>{windowMessage}</span>
+        </div>
+      ) : null}
+
       {player.phase === "playing" && currentExercise ? (
         <GoldenTimeExerciseRenderer
           key={currentExercise.id}
@@ -155,7 +178,9 @@ export function GoldenTimeSessionClient({
           totalXp={player.totalXp}
           durationLabel={player.getDurationLabel()}
           skillBreakdown={player.skillBreakdown}
-          onHome={handleExit}
+          onHome={handleGoHome}
+          onReviewWeak={handleReviewWeak}
+          onViewNotebook={handleViewNotebook}
         />
       ) : null}
 

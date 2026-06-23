@@ -1,8 +1,10 @@
 import * as React from "react";
 import {
+  BookOpen,
   Calendar,
   Headphones,
   Info,
+  Target,
   TrendingDown,
   TrendingUp,
 } from "lucide-react";
@@ -239,17 +241,29 @@ function GoldenTimeSessionSummary({
 
       {/* CTAs */}
       <div className="flex flex-col gap-2">
-        <LexiButton variant="golden" fullWidth onClick={onReviewWeak ?? onHome}>
-          {onReviewWeak ? "Ôn thêm từ yếu" : "Ôn tập tiếp"}
+        <LexiButton variant="golden" fullWidth onClick={onHome}>
+          Về trang chủ
         </LexiButton>
+        {onReviewWeak ? (
+          <LexiButton
+            variant="outline"
+            fullWidth
+            onClick={onReviewWeak}
+            iconLeft={<Target className="size-4" aria-hidden />}
+          >
+            Ôn thêm từ yếu
+          </LexiButton>
+        ) : null}
         {onViewNotebook ? (
-          <LexiButton variant="outline" fullWidth onClick={onViewNotebook}>
+          <LexiButton
+            variant="quiet"
+            fullWidth
+            onClick={onViewNotebook}
+            iconLeft={<BookOpen className="size-4" aria-hidden />}
+          >
             Xem Notebook
           </LexiButton>
         ) : null}
-        <LexiButton variant="quiet" fullWidth onClick={onHome}>
-          Về trang chủ
-        </LexiButton>
       </div>
     </div>
   );

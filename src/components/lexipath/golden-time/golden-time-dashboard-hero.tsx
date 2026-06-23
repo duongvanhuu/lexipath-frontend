@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Clock, Flame, Lock } from "lucide-react";
+import { AlertCircle, Clock, Flame, Hourglass, Lock, TrendingDown } from "lucide-react";
 import Link from "next/link";
 import type { Route } from "next";
 
@@ -9,6 +9,72 @@ import { cn } from "@/lib/utils/cn";
 
 import type { GoldenTimeReason } from "../types";
 import { GOLDEN_TIME_REASON_LABELS } from "../constants/lexipath.constants";
+
+/* -------------------------------------------------------------------------- */
+/* StatChip — local sub-component                                             */
+/* -------------------------------------------------------------------------- */
+
+type StatChipProps = {
+  icon: React.ReactElement;
+  label: string;
+  value: string;
+  variant?: "default" | "danger" | "info";
+};
+
+function StatChip({ icon, label, value, variant = "default" }: StatChipProps) {
+  return (
+    <div
+      className={cn(
+        "inline-flex items-center gap-2 rounded-lg border px-3 py-1.5",
+        variant === "danger"
+          ? "border-danger/20 bg-danger-soft"
+          : variant === "info"
+            ? "border-info/20 bg-info-soft"
+            : "border-golden/20 bg-golden-strong/10"
+      )}
+    >
+      <span
+        className={cn(
+          "shrink-0 [&_svg]:size-3.5",
+          variant === "danger"
+            ? "text-danger-foreground"
+            : variant === "info"
+              ? "text-info-foreground"
+              : "text-golden-foreground"
+        )}
+        aria-hidden
+      >
+        {icon}
+      </span>
+      <div className="flex flex-col">
+        <span
+          className={cn(
+            "text-[10px] font-semibold leading-none",
+            variant === "danger"
+              ? "text-danger-foreground/70"
+              : variant === "info"
+                ? "text-info-foreground/70"
+                : "text-golden-foreground/70"
+          )}
+        >
+          {label}
+        </span>
+        <span
+          className={cn(
+            "mt-0.5 text-sm font-bold leading-none",
+            variant === "danger"
+              ? "text-danger-foreground"
+              : variant === "info"
+                ? "text-info-foreground"
+                : "text-golden-foreground"
+          )}
+        >
+          {value}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 /* -------------------------------------------------------------------------- */
 /* GoldenTimeDashboardHero                                                     */
@@ -22,13 +88,18 @@ export type GoldenTimeDashboardHeroProps = {
   windowOpen: boolean;
   closeAt?: string;
   startHref: string;
+  estimatedMinutes?: number;
+  weakSkillLabel?: string;
+  goalDone?: number;
+  goalTotal?: number;
   className?: string;
 };
 
 /**
  * GoldenTimeDashboardHero — full-width hero panel for the /golden-time page.
- * Shows queue count, overdue alert, time window tagline, reason chips, and the
- * primary golden CTA. Uses only golden design tokens — never warning tokens.
+ * Shows queue count, overdue alert, time window tagline, reason chips, stat
+ * chips, optional goal progress bar, and the primary golden CTA.
+ * Uses only golden design tokens — never warning tokens.
  */
 function GoldenTimeDashboardHero({
   queueCount,
@@ -38,8 +109,17 @@ function GoldenTimeDashboardHero({
   windowOpen,
   closeAt,
   startHref,
+  estimatedMinutes,
+  weakSkillLabel,
+  goalDone,
+  goalTotal,
   className,
 }: GoldenTimeDashboardHeroProps) {
+  const goalPct =
+    goalTotal && goalTotal > 0
+      ? Math.min(100, Math.round(((goalDone ?? 0) / goalTotal) * 100))
+      : 0;
+
   return (
     <div
       className={cn(
@@ -104,6 +184,65 @@ function GoldenTimeDashboardHero({
               {GOLDEN_TIME_REASON_LABELS[reason]}
             </span>
           ))}
+        </div>
+      ) : null}
+
+      {/* Stat chips row */}
+      <div className="mt-4 flex flex-wrap gap-2">
+        <StatChip
+          icon={<Clock />}
+          label="Cần ôn ngay"
+          value={`${queueCount} từ`}
+        />
+        {overdueCount && overdueCount > 0 ? (
+          <StatChip
+            icon={<AlertCircle />}
+            label="Quá hạn"
+            value={`${overdueCount} từ`}
+            variant="danger"
+          />
+        ) : null}
+        {estimatedMinutes ? (
+          <StatChip
+            icon={<Hourglass />}
+            label="Thời gian ước tính"
+            value={`~${estimatedMinutes} phút`}
+          />
+        ) : null}
+        {weakSkillLabel ? (
+          <StatChip
+            icon={<TrendingDown />}
+            label="Kỹ năng cần chú ý"
+            value={weakSkillLabel}
+            variant="info"
+          />
+        ) : null}
+      </div>
+
+      {/* Daily goal progress */}
+      {goalTotal && goalTotal > 0 ? (
+        <div className="mt-4">
+          <div className="mb-1.5 flex items-center justify-between">
+            <span className="text-xs font-semibold text-golden-foreground/70">
+              Mục tiêu ôn hôm nay
+            </span>
+            <span className="text-xs font-bold text-golden-foreground">
+              {goalDone ?? 0}/{goalTotal} lượt
+            </span>
+          </div>
+          <div
+            className="h-1.5 w-full overflow-hidden rounded-pill bg-golden-strong/20"
+            role="progressbar"
+            aria-valuenow={goalPct}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label={`Mục tiêu ôn: ${goalDone ?? 0}/${goalTotal} lượt`}
+          >
+            <div
+              className="h-full rounded-pill bg-golden-strong transition-all"
+              style={{ width: `${goalPct}%` }}
+            />
+          </div>
         </div>
       ) : null}
 

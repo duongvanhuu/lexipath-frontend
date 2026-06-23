@@ -46,6 +46,8 @@ export interface GoldenQueueItem {
   reason: ReviewReason;
   skillKey: SkillKey;
   dueLabel?: string;
+  meaningVi?: string;
+  reading?: string;
 }
 
 export interface JourneyCheckpoint {

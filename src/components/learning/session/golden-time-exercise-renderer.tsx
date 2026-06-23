@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Volume2 } from "lucide-react";
 
 import { Flashcard } from "@/components/learning/exercises/flashcard";
 import { ChoiceOption } from "@/components/learning/exercises/choice-option";
@@ -180,7 +181,7 @@ function GoldenTimeExerciseRenderer({
   const phonetic = exercise.reading ?? exercise.ipa;
   const feedbackExplanation = exercise.explanation;
 
-  /* ---- Choice: GoldenTimeQuestionCard wraps prompt + choices ------------- */
+  /* ---- Choice: GoldenTimeQuestionCard with prominent word display -------- */
 
   if (exercise.type === "choice") {
     return (
@@ -188,6 +189,7 @@ function GoldenTimeExerciseRenderer({
         <GoldenTimeQuestionCard
           word={exercise.word}
           {...(phonetic ? { reading: phonetic } : {})}
+          {...(exercise.prompt ? { prompt: exercise.prompt } : {})}
           questionType={skillLabel}
           reviewChip={
             <ReviewReasonChip reason={exercise.reason}>
@@ -195,9 +197,6 @@ function GoldenTimeExerciseRenderer({
             </ReviewReasonChip>
           }
         >
-          {exercise.prompt ? (
-            <p className="mb-4 text-sm text-text-secondary">{exercise.prompt}</p>
-          ) : null}
           <ChoiceList
             choices={exercise.choices ?? []}
             selectedChoiceIndex={selectedChoiceIndex}
@@ -217,7 +216,7 @@ function GoldenTimeExerciseRenderer({
     );
   }
 
-  /* ---- Audio: info bar above (word hidden to preserve exercise intent) --- */
+  /* ---- Audio: word hidden to preserve exercise intent; revealed on answer  */
 
   if (exercise.type === "audio") {
     return (
@@ -239,6 +238,23 @@ function GoldenTimeExerciseRenderer({
             isAnswered={isAnswered}
             onSelect={onSelectAndSubmit}
           />
+          {isAnswered ? (
+            <div
+              className={cn(
+                "mt-4 text-center text-2xl font-bold",
+                feedbackState === "correct"
+                  ? "text-success-foreground"
+                  : "text-danger-foreground"
+              )}
+            >
+              {exercise.word}
+              {phonetic ? (
+                <span className="ml-2 text-base font-normal text-text-secondary">
+                  {phonetic}
+                </span>
+              ) : null}
+            </div>
+          ) : null}
         </AudioQuestionCard>
         {isAnswered ? (
           <Feedback
@@ -323,7 +339,7 @@ function GoldenTimeExerciseRenderer({
     );
   }
 
-  /* ---- Spelling: info bar above (word is the answer — keep hidden) ------- */
+  /* ---- Spelling: word is the answer — keep hidden; replay audio button ---- */
 
   if (exercise.type === "spelling") {
     return (
@@ -333,6 +349,17 @@ function GoldenTimeExerciseRenderer({
           reason={exercise.reason}
           {...(exercise.dueLabel !== undefined ? { dueLabel: exercise.dueLabel } : {})}
         />
+        {/* Replay audio */}
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={handleAudioPlay}
+            className="inline-flex items-center gap-2 rounded-button border border-golden/30 bg-golden-soft px-4 py-2 text-sm font-medium text-golden-foreground transition-colors hover:bg-golden-soft/80"
+          >
+            <Volume2 className="size-4" aria-hidden />
+            {audioPlaying ? "Đang phát..." : "Nghe lại"}
+          </button>
+        </div>
         <SpellingInputCard
           prompt={exercise.prompt ?? "Nghe phát âm và gõ lại từ:"}
           value={textInput}

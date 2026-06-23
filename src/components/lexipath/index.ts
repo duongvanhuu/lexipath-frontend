@@ -36,6 +36,7 @@ export { GoldenQueuePreview } from "./golden-time/golden-queue-preview";
 export { ReviewReasonChip } from "./golden-time/review-reason-chip";
 export { GoldenTimeDashboardHero } from "./golden-time/golden-time-dashboard-hero";
 export { TodaySchedulePanel } from "./golden-time/today-schedule-panel";
+export { ReviewReasonLegend } from "./golden-time/review-reason-legend";
 
 // Skills
 export { SkillProgressLane } from "./skills/skill-progress-lane";

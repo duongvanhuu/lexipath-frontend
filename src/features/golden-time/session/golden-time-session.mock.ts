@@ -1,6 +1,8 @@
 import type { GoldenTimeExercise, GoldenTimeSessionMeta } from "./golden-time-session.types";
 
-const GOLDEN_TIME_EXERCISES: GoldenTimeExercise[] = [
+/* ── English exercises ─────────────────────────────────────────────────── */
+
+const EN_EXERCISES: GoldenTimeExercise[] = [
   {
     id: "gt-1",
     type: "choice",
@@ -160,18 +162,211 @@ const GOLDEN_TIME_EXERCISES: GoldenTimeExercise[] = [
   },
 ];
 
+/* ── Japanese exercises ────────────────────────────────────────────────── */
+
+const JA_EXERCISES: GoldenTimeExercise[] = [
+  {
+    id: "ja-1",
+    type: "choice",
+    reason: "overdue",
+    skillKey: "meaning",
+    dueLabel: "Quá hạn",
+    word: "勉強",
+    reading: "べんきょう",
+    meaning: "học tập",
+    pos: "noun",
+    lang: "ja-JP",
+    prompt: "Chọn nghĩa đúng của từ:",
+    choices: ["học tập", "công việc", "nghỉ ngơi", "du lịch"],
+    correctChoiceIndex: 0,
+    explanation:
+      "勉強 (benkyō) — 'việc học'. Ví dụ: 毎日勉強します (Tôi học mỗi ngày).",
+    xpReward: 12,
+  },
+  {
+    id: "ja-2",
+    type: "audio",
+    reason: "due",
+    skillKey: "listening",
+    dueLabel: "Hôm nay",
+    word: "約束",
+    reading: "やくそく",
+    meaning: "lời hứa, cuộc hẹn",
+    pos: "noun",
+    lang: "ja-JP",
+    prompt: "Nghe và chọn từ đúng:",
+    choices: ["約束 (やくそく)", "勉強 (べんきょう)", "感謝 (かんしゃ)", "努力 (どりょく)"],
+    correctChoiceIndex: 0,
+    explanation: "約束 (yakusoku) — 'lời hứa, cuộc hẹn'. Âm: ya-ku-so-ku.",
+    xpReward: 12,
+  },
+  {
+    id: "ja-3",
+    type: "spelling",
+    reason: "weak",
+    skillKey: "spelling",
+    word: "感謝",
+    reading: "かんしゃ",
+    meaning: "lòng biết ơn",
+    pos: "noun",
+    lang: "ja-JP",
+    prompt: "Nghe từ và gõ phiên âm romaji:",
+    hint: "Gợi ý: bắt đầu bằng 'k'",
+    correctAnswer: "kansha",
+    explanation: "感謝 (kansha) — 'lòng biết ơn'. Phiên âm: k-a-n-s-h-a.",
+    xpReward: 15,
+  },
+  {
+    id: "ja-4",
+    type: "fill_blank",
+    reason: "due",
+    skillKey: "usage",
+    dueLabel: "Hôm nay",
+    word: "努力",
+    reading: "どりょく",
+    meaning: "nỗ lực",
+    pos: "noun",
+    lang: "ja-JP",
+    sentenceBefore: "___",
+    sentenceAfter: "は裏切らない。",
+    correctAnswer: "努力",
+    explanation:
+      "努力は裏切らない — 'Nỗ lực sẽ không phản bội bạn.' Câu danh ngôn nổi tiếng trong tiếng Nhật.",
+    xpReward: 15,
+  },
+  {
+    id: "ja-5",
+    type: "choice",
+    reason: "exam_miss",
+    skillKey: "collocation",
+    dueLabel: "Sai bài thi",
+    word: "経験",
+    reading: "けいけん",
+    meaning: "kinh nghiệm",
+    pos: "noun",
+    lang: "ja-JP",
+    prompt: "Chọn cách đọc đúng của từ này:",
+    choices: ["けいけん (keiken)", "かんしゃ (kansha)", "きんちょう (kinchō)", "せいちょう (seichō)"],
+    correctChoiceIndex: 0,
+    explanation:
+      "経験 — 'kinh nghiệm'. 経 (kei) = trải qua, 験 (ken) = kiểm nghiệm.",
+    xpReward: 15,
+  },
+];
+
+/* ── Chinese exercises ─────────────────────────────────────────────────── */
+
+const ZH_EXERCISES: GoldenTimeExercise[] = [
+  {
+    id: "zh-1",
+    type: "choice",
+    reason: "overdue",
+    skillKey: "meaning",
+    dueLabel: "Quá hạn",
+    word: "你好",
+    reading: "nǐ hǎo",
+    meaning: "xin chào",
+    pos: "phrase",
+    lang: "zh-CN",
+    prompt: "Chọn nghĩa đúng của từ:",
+    choices: ["xin chào", "cảm ơn", "tạm biệt", "bạn khỏe không?"],
+    correctChoiceIndex: 0,
+    explanation: '"你好" (nǐ hǎo) — xin chào. 你 = bạn, 好 = tốt.',
+    xpReward: 12,
+  },
+  {
+    id: "zh-2",
+    type: "audio",
+    reason: "exam_miss",
+    skillKey: "listening",
+    dueLabel: "Sai bài thi",
+    word: "谢谢",
+    reading: "xiè xie",
+    meaning: "cảm ơn",
+    pos: "phrase",
+    lang: "zh-CN",
+    prompt: "Nghe và chọn từ đúng:",
+    choices: ["谢谢 (xiè xie)", "你好 (nǐ hǎo)", "再见 (zài jiàn)", "对不起 (duì bu qǐ)"],
+    correctChoiceIndex: 0,
+    explanation: '"谢谢" (xiè xie) — cảm ơn. Thanh điệu: 4-neutral.',
+    xpReward: 12,
+  },
+  {
+    id: "zh-3",
+    type: "spelling",
+    reason: "weak",
+    skillKey: "spelling",
+    word: "老师",
+    reading: "lǎo shī",
+    meaning: "giáo viên, thầy cô",
+    pos: "noun",
+    lang: "zh-CN",
+    prompt: "Nghe và gõ Pinyin của từ này:",
+    hint: "Gợi ý: lao shi (thanh 3-1)",
+    correctAnswer: "lǎo shī",
+    explanation: '"老师" (lǎo shī) — giáo viên. 老=lǎo (già), 师=shī (thầy).',
+    xpReward: 15,
+  },
+  {
+    id: "zh-4",
+    type: "choice",
+    reason: "due",
+    skillKey: "collocation",
+    dueLabel: "Hôm nay",
+    word: "学生",
+    reading: "xuésheng",
+    meaning: "học sinh",
+    pos: "noun",
+    lang: "zh-CN",
+    prompt: 'Chọn chữ Hán đúng cho "xuésheng" (học sinh):',
+    choices: ["学生", "老师", "朋友", "家人"],
+    correctChoiceIndex: 0,
+    explanation: '"学生" (xuésheng) — học sinh. 学=học, 生=sinh/người.',
+    xpReward: 15,
+  },
+];
+
+/* ── Session getter ────────────────────────────────────────────────────── */
+
+function resolveExercises(sessionId: string): {
+  exercises: GoldenTimeExercise[];
+  lang: string;
+  windowMessage: string;
+} {
+  if (sessionId.startsWith("ja")) {
+    return {
+      exercises: JA_EXERCISES,
+      lang: "ja-JP",
+      windowMessage: "Ôn đúng thời điểm — trước khi quên · ~5 phút",
+    };
+  }
+  if (sessionId.startsWith("zh")) {
+    return {
+      exercises: ZH_EXERCISES,
+      lang: "zh-CN",
+      windowMessage: "Ôn ngay — cửa sổ tốt nhất trong ngày hôm nay · ~4 phút",
+    };
+  }
+  return {
+    exercises: EN_EXERCISES,
+    lang: "en-US",
+    windowMessage: "Ôn đúng thời điểm — trước khi quên · ~7 phút",
+  };
+}
+
 export function getMockGoldenTimeSession(sessionId: string): {
   exercises: GoldenTimeExercise[];
   meta: GoldenTimeSessionMeta;
 } {
+  const { exercises, lang, windowMessage } = resolveExercises(sessionId);
   return {
-    exercises: GOLDEN_TIME_EXERCISES,
+    exercises,
     meta: {
       sessionId,
       lessonTitle: "Golden Time",
-      queueCount: GOLDEN_TIME_EXERCISES.length,
-      windowMessage: "Ôn đúng thời điểm — trước khi quên · ~7 phút",
-      lang: "en-US",
+      queueCount: exercises.length,
+      windowMessage,
+      lang,
       returnHref: "/golden-time",
     },
   };

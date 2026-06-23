@@ -27,4 +27,8 @@ export interface GoldenTimeDashboardData {
   queue: GoldenQueueItem[];
   schedule: GoldenTimeScheduleItem[];
   skillLanes: SkillLaneData[];
+  estimatedMinutes?: number;
+  weakSkillLabel?: string;
+  goalDone?: number;
+  goalTotal?: number;
 }
