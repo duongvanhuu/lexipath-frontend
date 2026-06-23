@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, XCircle } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -32,6 +32,7 @@ function PlanComparisonCard({
     billingCycleLabel,
     description,
     features,
+    featureList,
     highlighted = false,
     ctaLabel = "Chọn gói",
     badge,
@@ -72,15 +73,38 @@ function PlanComparisonCard({
         </div>
 
         <ul className="flex flex-col gap-2" aria-label={`Tính năng của gói ${name}`}>
-          {features.map((feature) => (
-            <li key={feature} className="flex items-start gap-2 text-sm">
-              <CheckCircle2
-                className="mt-0.5 size-4 shrink-0 text-success-foreground"
-                aria-hidden
-              />
-              <span className="text-text-secondary">{feature}</span>
-            </li>
-          ))}
+          {featureList
+            ? featureList.map((item) => (
+                <li key={item.label} className="flex items-start gap-2 text-sm">
+                  {item.included ? (
+                    <CheckCircle2
+                      className="mt-0.5 size-4 shrink-0 text-success-foreground"
+                      aria-label="Có"
+                    />
+                  ) : (
+                    <XCircle
+                      className="mt-0.5 size-4 shrink-0 text-text-muted"
+                      aria-label="Không có"
+                    />
+                  )}
+                  <span
+                    className={cn(
+                      item.included ? "text-text-secondary" : "text-text-muted"
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                </li>
+              ))
+            : features.map((feature) => (
+                <li key={feature} className="flex items-start gap-2 text-sm">
+                  <CheckCircle2
+                    className="mt-0.5 size-4 shrink-0 text-success-foreground"
+                    aria-hidden
+                  />
+                  <span className="text-text-secondary">{feature}</span>
+                </li>
+              ))}
         </ul>
       </CardContent>
 

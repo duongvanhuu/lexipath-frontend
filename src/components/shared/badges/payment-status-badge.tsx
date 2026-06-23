@@ -12,11 +12,15 @@ import { cn } from "@/lib/utils/cn";
 export const paymentStatusBadgeVariants = cva("", {
   variants: {
     status: {
+      active: "bg-success-soft text-success-foreground",
       paid: "bg-success-soft text-success-foreground",
+      success: "bg-success-soft text-success-foreground",
       pending: "bg-warning-soft text-warning-foreground",
+      refund_pending: "bg-warning-soft text-warning-foreground",
       failed: "bg-danger-soft text-danger-foreground",
       refunded: "bg-primary-soft text-primary-soft-foreground",
       canceled: "bg-surface-muted text-text-muted",
+      cancelled: "bg-surface-muted text-text-muted",
     },
   },
   defaultVariants: {
@@ -29,11 +33,15 @@ export type PaymentStatus = NonNullable<
 >;
 
 const PAYMENT_LABELS: Record<PaymentStatus, string> = {
+  active: "Đang hoạt động",
   paid: "Đã thanh toán",
-  pending: "Chờ thanh toán",
+  success: "Thành công",
+  pending: "Đang xử lý",
+  refund_pending: "Đang hoàn tiền",
   failed: "Thất bại",
   refunded: "Đã hoàn tiền",
   canceled: "Đã hủy",
+  cancelled: "Đã hủy",
 };
 
 export type PaymentStatusBadgeProps = Omit<
