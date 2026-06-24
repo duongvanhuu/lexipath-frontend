@@ -7,3 +7,5 @@ export * from "./components/new-question-dialog";
 export * from "./components/review-question-dialog";
 export * from "./components/group-editor-dialog";
 export * from "./components/link-vocab-dialog";
+export * from "./components/groups-view";
+export * from "./components/tag-source-manager";
