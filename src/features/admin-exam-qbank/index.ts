@@ -3,3 +3,7 @@ export * from "./mock/question-bank.mock";
 export * from "./mock/blank-question";
 export * from "./hooks/use-question-bank-filters";
 export * from "./components/question-bank-table";
+export * from "./components/new-question-dialog";
+export * from "./components/review-question-dialog";
+export * from "./components/group-editor-dialog";
+export * from "./components/link-vocab-dialog";
