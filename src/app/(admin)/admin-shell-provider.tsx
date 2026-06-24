@@ -57,7 +57,7 @@ const ADMIN_NAV: NavSection[] = [
         id: "admin-questions",
         label: "Câu hỏi",
         icon: <FileQuestion aria-hidden />,
-        href: "/admin/questions" as Route,
+        href: "/admin/exams/question-bank" as Route,
       },
     ],
   },
@@ -98,7 +98,7 @@ function getActiveNavId(pathname: string): string {
   if (pathname.startsWith("/admin/vocab")) return "admin-vocab";
   if (pathname.startsWith("/admin/collections")) return "admin-collections";
   if (pathname.startsWith("/admin/exam")) return "admin-exam";
-  if (pathname.startsWith("/admin/questions")) return "admin-questions";
+  if (pathname.startsWith("/admin/exams/question-bank")) return "admin-questions";
   if (pathname.startsWith("/admin/review")) return "admin-review";
   if (pathname.startsWith("/admin/scoring")) return "admin-scoring";
   if (pathname.startsWith("/admin/users")) return "admin-users";

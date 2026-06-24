@@ -10,3 +10,4 @@ export * from "./components/link-vocab-dialog";
 export * from "./components/groups-view";
 export * from "./components/tag-source-manager";
 export * from "./components/question-editor-panel";
+export * from "./components/question-bank-client";

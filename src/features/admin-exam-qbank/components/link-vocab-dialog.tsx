@@ -111,13 +111,18 @@ export function LinkVocabDialog({
   const [localIds, setLocalIds] = React.useState<string[]>([]);
   const [search, setSearch] = React.useState("");
 
-  // Copy selected IDs into local state when dialog opens
+  // Copy selected IDs into local state when dialog opens.
+  // Suppressed: state reset on controlled "open" flag is the standard dialog pattern.
+  /* eslint-disable react-hooks/set-state-in-effect */
   React.useEffect(() => {
     if (open) {
       setLocalIds([...selectedIds]);
       setSearch("");
     }
-  }, [open, selectedIds]);
+    // intentional: only re-initialize when dialog opens, not on every selectedIds change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   function toggle(id: string) {
     setLocalIds((prev) =>

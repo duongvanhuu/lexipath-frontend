@@ -83,13 +83,18 @@ export function GroupEditorDialog({
     {},
   );
 
-  // Re-initialize when dialog opens or group prop changes
+  // Re-initialize when dialog opens or group prop changes.
+  // Suppressed: state reset on controlled "open" flag is the standard dialog pattern.
+  /* eslint-disable react-hooks/set-state-in-effect */
   React.useEffect(() => {
     if (open) {
       setForm(group != null ? groupToForm(group) : makeBlankForm());
       setErrors({});
     }
-  }, [open, group]);
+    // intentional: only re-initialize when dialog opens, not on every group prop change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   function upd(patch: Partial<GroupFormState>) {
     setForm((prev) => ({ ...prev, ...patch }));
