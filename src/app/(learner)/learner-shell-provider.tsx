@@ -3,25 +3,44 @@
 import * as React from "react";
 import { usePathname } from "next/navigation";
 import type { Route } from "next";
-import { BookOpen, GraduationCap, NotebookPen } from "lucide-react";
+import {
+  AlarmClock,
+  BarChart3,
+  BookOpen,
+  FileText,
+  Home,
+  NotebookPen,
+  Search,
+} from "lucide-react";
 
 import { useCurrentUser, useLogoutMutation } from "@/features/auth";
 import { LexiLogo } from "@/features/marketing";
 import { LearnerAppShell } from "@/components/layouts/learner-app-shell";
+import {
+  MOCK_LEARNING_PROFILES,
+} from "@/components/layouts/learner-language-switcher";
+import { MOCK_NOTIFICATIONS } from "@/components/layouts/learner-notification-panel";
 import type { NavItem } from "@/components/shared/navigation";
+import type { UserStats } from "@/components/layouts/learner-chrome";
 
 const LEARNER_NAV: NavItem[] = [
   {
-    id: "vocabulary",
-    label: "Từ vựng",
-    icon: <BookOpen aria-hidden />,
-    href: "/vocabulary" as Route,
+    id: "home",
+    label: "Trang chủ",
+    icon: <Home aria-hidden />,
+    href: "/dashboard" as Route,
   },
   {
-    id: "learning",
-    label: "Học",
-    icon: <GraduationCap aria-hidden />,
-    href: "/learning" as Route,
+    id: "learn",
+    label: "Học từ vựng",
+    icon: <BookOpen aria-hidden />,
+    href: "/collections" as Route,
+  },
+  {
+    id: "review",
+    label: "Ôn tập",
+    icon: <AlarmClock aria-hidden />,
+    href: "/golden-time" as Route,
   },
   {
     id: "notebook",
@@ -29,17 +48,39 @@ const LEARNER_NAV: NavItem[] = [
     icon: <NotebookPen aria-hidden />,
     href: "/notebook" as Route,
   },
+  {
+    id: "dictionary",
+    label: "Từ điển",
+    icon: <Search aria-hidden />,
+    href: "/dictionary" as Route,
+  },
+  {
+    id: "exams",
+    label: "Kho đề",
+    icon: <FileText aria-hidden />,
+    href: "/exams" as Route,
+  },
+  {
+    id: "stats",
+    label: "Thống kê",
+    icon: <BarChart3 aria-hidden />,
+    href: "/stats" as Route,
+  },
 ];
 
-const ACCOUNT_ACTIONS = [
-  { id: "profile", label: "Hồ sơ", href: "/profile" as Route },
-  { id: "settings", label: "Cài đặt", href: "/settings" as Route },
-];
+const MOCK_USER_STATS: UserStats = {
+  streak: 12,
+  xp: 1240,
+};
 
 function getActiveNavId(pathname: string): string {
-  if (pathname.startsWith("/vocabulary")) return "vocabulary";
-  if (pathname.startsWith("/learning")) return "learning";
+  if (pathname === "/dashboard" || pathname === "/") return "home";
+  if (pathname.startsWith("/collections") || pathname.startsWith("/vocab")) return "learn";
+  if (pathname.startsWith("/golden-time") || pathname.startsWith("/review")) return "review";
   if (pathname.startsWith("/notebook")) return "notebook";
+  if (pathname.startsWith("/dictionary")) return "dictionary";
+  if (pathname.startsWith("/exams")) return "exams";
+  if (pathname.startsWith("/stats")) return "stats";
   return "";
 }
 
@@ -68,7 +109,11 @@ export function LearnerShellProvider({
       navItems={LEARNER_NAV}
       activeNavId={getActiveNavId(pathname)}
       user={userSummary}
-      accountActions={ACCOUNT_ACTIONS}
+      userStats={MOCK_USER_STATS}
+      learningProfiles={MOCK_LEARNING_PROFILES}
+      activeLanguage="ja"
+      notifications={MOCK_NOTIFICATIONS}
+      goldenTime={{ count: 5, href: "/golden-time" as Route }}
       onSignOut={() => logout.mutate()}
     >
       {children}
