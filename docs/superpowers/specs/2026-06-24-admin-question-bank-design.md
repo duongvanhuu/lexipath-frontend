@@ -45,6 +45,9 @@ File:  src/app/(admin)/admin/exams/question-bank/page.tsx
 
 ## 3. Feature Folder Structure
 
+All feature-specific components stay inside `src/features/admin-exam-qbank/components/`.
+Do **not** move to `src/components/admin-exam-qbank/` — this is a self-contained admin feature.
+
 ```
 src/features/admin-exam-qbank/
   types/
@@ -84,12 +87,32 @@ src/features/admin-exam-qbank/
 ### 4.1 Core Types (`question-bank.types.ts`)
 
 ```ts
+// UI question status (3 values for simplicity).
+// If backend uses "in_review" / "reviewed" / other variants, the future mapper
+// must convert to this enum.
 type QuestionStatus = "draft" | "review" | "published";
-type QuestionType = "mcq" | "multi" | "fill" | "matching" | "tfng" | "ynng" | "ordering" | "short" | "writing" | "speaking";
+
+// UI question type — short keys for frontend ergonomics.
+// See §4.4 for UI↔DB code mapping.
+type QuestionType =
+  | "mcq" | "multi" | "fill" | "matching"
+  | "tfng" | "ynng" | "ordering" | "short"
+  | "writing" | "speaking";
+
+// UI skill values (simplified for admin screen).
+// If DB stores finer-grained codes (e.g. "grammar_usage"), the future DTO
+// mapper converts them to the nearest UI label. Do not normalise in this task.
 type Skill = "listening" | "reading" | "writing" | "speaking" | "grammar" | "vocab";
+
+// UI difficulty — 3 labels. DB stores a numeric 1–5 scale.
+// See §4.5 for mapping.
 type Difficulty = "easy" | "medium" | "hard";
 
+// QuestionChoice.correct is a UI/editor convenience field.
+// Backend stores correct answers via answer key records — future mapper must
+// split choices and answer keys when building the DTO.
 interface QuestionChoice { key: string; text: string; correct: boolean; }
+
 interface QuestionBlank { pos: number; accepted: string[]; caseSensitive: boolean; }
 interface MatchingPair { left: string; right: string; }
 interface OrderItem { text: string; correctPos: number; }
@@ -145,6 +168,58 @@ rubrics → exam_rubrics
 ### 4.3 `blankQuestion(type)` factory
 
 Each question type has a valid default structure (blank choices, blank blanks, etc.) used when creating a new question. Implemented as a pure function in types or utils.
+
+### 4.4 Question Type UI ↔ DB Code Mapping
+
+UI type keys are short. The database uses longer canonical codes. Define these
+constants in `question-bank.types.ts` for future DTO mapper use.
+
+```ts
+const QUESTION_TYPE_TO_DB_CODE = {
+  mcq:      "mcq",
+  multi:    "multi_select",
+  fill:     "fill_blank",
+  matching: "matching",
+  tfng:     "true_false_not_given",
+  ynng:     "yes_no_not_given",
+  ordering: "ordering",
+  short:    "short_answer",
+  writing:  "writing",
+  speaking: "speaking",
+} as const;
+
+const DB_CODE_TO_QUESTION_TYPE: Record<string, QuestionType> = {
+  mcq:                    "mcq",
+  multi_select:           "multi",
+  fill_blank:             "fill",
+  matching:               "matching",
+  true_false_not_given:   "tfng",
+  yes_no_not_given:       "ynng",
+  ordering:               "ordering",
+  short_answer:           "short",
+  writing:                "writing",
+  speaking:               "speaking",
+};
+```
+
+### 4.5 Difficulty UI ↔ DB Numeric Mapping
+
+```ts
+// DB stores difficulty as a 1–5 integer; UI collapses to 3 labels.
+const DIFFICULTY_TO_DB_VALUE = {
+  easy:   1,
+  medium: 3,
+  hard:   5,
+} as const;
+
+const DB_VALUE_TO_DIFFICULTY: Record<number, Difficulty> = {
+  1: "easy",
+  2: "easy",
+  3: "medium",
+  4: "hard",
+  5: "hard",
+};
+```
 
 ---
 
@@ -296,7 +371,7 @@ Read-only, renders question as learner sees it. Per type:
 
 | Component | Where used |
 |---|---|
-| `FilterToolbar` | Questions tab |
+| `FilterToolbar` | Questions tab — use as-is if it supports all fields; wrap as `QuestionBankFilterToolbar` only if needed. **Do not reduce filter fidelity to fit the existing component.** |
 | `AdminDataTable` | `QuestionBankTable` |
 | `BulkActionToolbar` | Questions tab bulk bar |
 | `PageHeader` | Main screen header |
@@ -360,7 +435,22 @@ Read-only, renders question as learner sees it. Per type:
 
 ---
 
-## 16. Done Criteria
+## 16. Scope Guard
+
+The following are explicitly **out of scope** for this task:
+
+- No API calls or HTTP requests
+- No TanStack Query hooks
+- No Zustand stores (unless existing admin state already requires it — check before adding)
+- No URL change when opening the editor
+- No route per question (no `/admin/exams/question-bank/[id]`)
+- No full skill-code normalisation (DB `grammar_usage` → UI `grammar` etc. is a future mapper concern)
+- No media library implementation (separate feature)
+- No test-builder, programs, blueprints, or scoring pages
+
+---
+
+## 17. Done Criteria
 
 - [ ] `lint` passes
 - [ ] `typecheck` passes
