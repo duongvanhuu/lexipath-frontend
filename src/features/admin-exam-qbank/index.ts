@@ -9,3 +9,4 @@ export * from "./components/group-editor-dialog";
 export * from "./components/link-vocab-dialog";
 export * from "./components/groups-view";
 export * from "./components/tag-source-manager";
+export * from "./components/question-editor-panel";
