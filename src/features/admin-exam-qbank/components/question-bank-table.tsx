@@ -225,7 +225,7 @@ export function QuestionBankTable({
       <AdminDataTable
         data={questions}
         columns={columns}
-        emptyTitle="Không có câu hỏi"
+        emptyTitle="Không tìm thấy câu hỏi"
         emptyDescription="Thử đổi bộ lọc hoặc tạo câu hỏi mới."
         onRowClick={onOpenEditor}
         onSelectionChange={handleSelectionChange}
