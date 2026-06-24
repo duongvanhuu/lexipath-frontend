@@ -97,8 +97,8 @@ function getActiveNavId(pathname: string): string {
   if (pathname === "/admin") return "admin-dashboard";
   if (pathname.startsWith("/admin/vocab")) return "admin-vocab";
   if (pathname.startsWith("/admin/collections")) return "admin-collections";
-  if (pathname.startsWith("/admin/exam")) return "admin-exam";
   if (pathname.startsWith("/admin/exams/question-bank")) return "admin-questions";
+  if (pathname.startsWith("/admin/exam")) return "admin-exam";
   if (pathname.startsWith("/admin/review")) return "admin-review";
   if (pathname.startsWith("/admin/scoring")) return "admin-scoring";
   if (pathname.startsWith("/admin/users")) return "admin-users";
