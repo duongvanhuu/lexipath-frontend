@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Check, Info, BookOpen, Mic, Lightbulb } from "lucide-react";
+import { Check, BookOpen, Mic, Lightbulb } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils/cn";
 import { QB_RUBRICS } from "../mock/question-bank.mock";
