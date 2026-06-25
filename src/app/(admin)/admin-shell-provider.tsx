@@ -8,7 +8,10 @@ import {
   ClipboardList,
   CreditCard,
   FileQuestion,
+  GitMerge,
   GraduationCap,
+  Inbox,
+  KeyRound,
   LayoutDashboard,
   Layers,
   Library,
@@ -159,6 +162,30 @@ const ADMIN_NAV: NavSection[] = [
       },
     ],
   },
+  {
+    id: "ops",
+    label: "Vận hành",
+    items: [
+      {
+        id: "admin-idempotency",
+        label: "Idempotency",
+        icon: <KeyRound aria-hidden />,
+        href: "/admin/reliability/idempotency" as Route,
+      },
+      {
+        id: "admin-outbox",
+        label: "Outbox events",
+        icon: <Inbox aria-hidden />,
+        href: "/admin/reliability/outbox" as Route,
+      },
+      {
+        id: "admin-integration-events",
+        label: "Integration events",
+        icon: <GitMerge aria-hidden />,
+        href: "/admin/reliability/integration-events" as Route,
+      },
+    ],
+  },
 ];
 
 function getActiveNavId(pathname: string): string {
@@ -180,6 +207,9 @@ function getActiveNavId(pathname: string): string {
   if (pathname.startsWith("/admin/payments/orders")) return "admin-payment-orders";
   if (pathname.startsWith("/admin/payments/webhooks")) return "admin-payment-webhooks";
   if (pathname.startsWith("/admin/payments/refunds")) return "admin-payment-refunds";
+  if (pathname.startsWith("/admin/reliability/idempotency")) return "admin-idempotency";
+  if (pathname.startsWith("/admin/reliability/outbox")) return "admin-outbox";
+  if (pathname.startsWith("/admin/reliability/integration-events")) return "admin-integration-events";
   return "";
 }
 
