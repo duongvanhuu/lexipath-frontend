@@ -1,0 +1,85 @@
+import type { AdminPermission, AdminRole, RbacUser } from "./types";
+
+export const MOCK_PERMISSIONS: AdminPermission[] = [
+  { id: "p_content_read",   key: "content.read",    label: "Xem nội dung",        group: "Nội dung",   desc: "Xem từ vựng, bộ sưu tập, bài học" },
+  { id: "p_content_write",  key: "content.write",   label: "Sửa nội dung",        group: "Nội dung",   desc: "Tạo và chỉnh sửa từ vựng, bài học" },
+  { id: "p_content_review", key: "content.review",  label: "Duyệt nội dung",      group: "Nội dung",   desc: "Phê duyệt hoặc từ chối bản nháp" },
+  { id: "p_content_pub",    key: "content.publish", label: "Xuất bản nội dung",   group: "Nội dung",   desc: "Đẩy nội dung lên môi trường thật" },
+  { id: "p_exam_manage",    key: "exam.manage",     label: "Quản lý kỳ thi",      group: "Kiểm tra",   desc: "Tạo đề thi, ngân hàng câu hỏi" },
+  { id: "p_exam_score",     key: "exam.scoring",    label: "Cấu hình chấm điểm",  group: "Kiểm tra",   desc: "Thiết lập thang điểm và rubric" },
+  { id: "p_pay_view",       key: "payment.view",    label: "Xem thanh toán",      group: "Thanh toán", desc: "Xem gói, đơn hàng, giao dịch" },
+  { id: "p_pay_refund",     key: "payment.refund",  label: "Xử lý hoàn tiền",     group: "Thanh toán", desc: "Duyệt và thực hiện hoàn tiền" },
+  { id: "p_pay_plans",      key: "payment.plans",   label: "Quản lý gói dịch vụ", group: "Thanh toán", desc: "Tạo, sửa, ẩn gói đăng ký" },
+  { id: "p_sec_view",       key: "security.view",   label: "Xem bảo mật",         group: "Bảo mật",    desc: "Xem phiên, thiết bị, sự kiện" },
+  { id: "p_sec_revoke",     key: "security.revoke", label: "Thu hồi phiên",       group: "Bảo mật",    desc: "Thu hồi phiên đăng nhập, khóa/mở tài khoản" },
+  { id: "p_rbac_manage",    key: "rbac.manage",     label: "Quản lý phân quyền",  group: "Hệ thống",   desc: "Tạo vai trò, gán quyền cho người dùng" },
+  { id: "p_ops_view",       key: "ops.view",        label: "Xem vận hành",        group: "Hệ thống",   desc: "Xem idempotency, outbox, integration events" },
+  { id: "p_ops_retry",      key: "ops.retry",       label: "Thử lại sự kiện",     group: "Hệ thống",   desc: "Retry outbox/integration event lỗi" },
+];
+
+export const MOCK_ROLES: AdminRole[] = [
+  {
+    id: "role_admin",
+    name: "Quản trị viên",
+    key: "super_admin",
+    description: "Toàn quyền trên hệ thống, không giới hạn.",
+    users: 3,
+    system: true,
+    permissions: MOCK_PERMISSIONS.map((p) => p.key),
+  },
+  {
+    id: "role_content",
+    name: "Biên tập nội dung",
+    key: "content_editor",
+    description: "Tạo và chỉnh sửa từ vựng, bài học, bộ sưu tập.",
+    users: 12,
+    system: false,
+    permissions: ["content.read", "content.write", "exam.manage"],
+  },
+  {
+    id: "role_reviewer",
+    name: "Người duyệt nội dung",
+    key: "content_reviewer",
+    description: "Duyệt và xuất bản nội dung do biên tập viên gửi.",
+    users: 5,
+    system: false,
+    permissions: ["content.read", "content.review", "content.publish"],
+  },
+  {
+    id: "role_billing",
+    name: "Quản lý thanh toán",
+    key: "billing_manager",
+    description: "Quản lý gói, đơn hàng và hoàn tiền.",
+    users: 4,
+    system: false,
+    permissions: ["payment.view", "payment.refund", "payment.plans"],
+  },
+  {
+    id: "role_security",
+    name: "Chuyên viên bảo mật",
+    key: "security_officer",
+    description: "Giám sát phiên, thiết bị và xử lý sự cố bảo mật.",
+    users: 2,
+    system: false,
+    permissions: ["security.view", "security.revoke", "ops.view"],
+  },
+  {
+    id: "role_support",
+    name: "Hỗ trợ khách hàng",
+    key: "support_agent",
+    description: "Quyền xem giới hạn để hỗ trợ người dùng.",
+    users: 18,
+    system: false,
+    permissions: ["content.read", "payment.view", "security.view"],
+  },
+];
+
+export const MOCK_RBAC_USERS: RbacUser[] = [
+  { id: "u1", name: "Minh Anh",     email: "minhanh@lexipath.vn",  roles: ["role_admin"],                     lastActive: "Đang hoạt động" },
+  { id: "u2", name: "Hoàng Lê",     email: "hoangle@lexipath.vn",  roles: ["role_content", "role_reviewer"],  lastActive: "12 phút trước" },
+  { id: "u3", name: "Thảo Nguyễn",  email: "thao@lexipath.vn",     roles: ["role_content"],                   lastActive: "1 giờ trước" },
+  { id: "u4", name: "Duy Phạm",     email: "duy@lexipath.vn",      roles: ["role_billing"],                   lastActive: "Hôm qua" },
+  { id: "u5", name: "Tuấn Võ",      email: "tuanvo@lexipath.vn",   roles: ["role_security"],                  lastActive: "3 ngày trước" },
+  { id: "u6", name: "Lan Hồ",       email: "lan@lexipath.vn",      roles: ["role_support"],                   lastActive: "5 phút trước" },
+  { id: "u7", name: "Khánh Trần",   email: "khanh@lexipath.vn",    roles: [],                                 lastActive: "2 tuần trước" },
+];
