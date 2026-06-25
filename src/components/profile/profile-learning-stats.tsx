@@ -34,8 +34,9 @@ function ProfileLearningStats({ stats }: ProfileLearningStatsProps) {
         >
           Tiến độ học tập
         </h2>
-        <Badge className="bg-primary-soft text-primary-soft-foreground">
-          {activeLangName}
+        <Badge className="gap-1.5 bg-primary-soft text-primary-soft-foreground">
+          <span className="size-1.5 rounded-full bg-primary" aria-hidden />
+          {activeLangName} · đang hoạt động
         </Badge>
       </div>
 

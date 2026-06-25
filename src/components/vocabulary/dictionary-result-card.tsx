@@ -102,7 +102,7 @@ function DictionaryResultCard({
             </span>
           )}
           {tier === "norm" && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-semibold text-blue-600">
+            <span className="inline-flex items-center gap-1 rounded-full bg-info-soft px-2.5 py-0.5 text-[10px] font-semibold text-info-foreground">
               Khớp gần đúng
             </span>
           )}

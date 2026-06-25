@@ -6,6 +6,7 @@ import type { Route } from "next";
 import {
   CheckCircle,
   Clock,
+  Globe,
   MessageSquare,
   RefreshCw,
   XCircle,
@@ -59,6 +60,13 @@ const STAT_CONFIG: {
     bg: "bg-danger-soft",
     fg: "text-danger-foreground",
   },
+  {
+    status: "published",
+    label: "Đã xuất bản",
+    icon: <Globe className="size-5" aria-hidden />,
+    bg: "bg-primary-soft",
+    fg: "text-primary",
+  },
 ];
 
 interface ReviewBoardClientProps {
@@ -96,7 +104,7 @@ export function ReviewBoardClient({ initialTasks }: ReviewBoardClientProps) {
       </div>
 
       {/* Stat cards */}
-      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         {STAT_CONFIG.map((s) => {
           const count = byStatus(s.status).length;
           return (

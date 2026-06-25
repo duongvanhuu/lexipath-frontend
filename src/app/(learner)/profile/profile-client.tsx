@@ -161,7 +161,7 @@ export function ProfileClient() {
               </p>
             </div>
             <Button size="sm" variant={isPro ? "outline" : "default"} asChild>
-              <Link href={"/settings" as Route}>{isPro ? "Quản lý" : "Nâng cấp Pro"}</Link>
+              <Link href={"/subscription" as Route}>{isPro ? "Quản lý" : "Nâng cấp Pro"}</Link>
             </Button>
           </div>
         </section>
@@ -189,7 +189,7 @@ export function ProfileClient() {
               </p>
             </div>
             <Button size="sm" variant="outline" asChild>
-              <Link href={"/settings" as Route}>Quản lý</Link>
+              <Link href={"/security" as Route}>Quản lý</Link>
             </Button>
           </div>
         </section>

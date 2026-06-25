@@ -1,8 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import type { Route } from "next";
 import { Camera, Pencil, Eye, Phone, Globe, CheckCircle, AlertCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -129,11 +127,9 @@ function ProfileHeroCard({ user, onEditClick }: ProfileHeroCardProps) {
       {/* Divider + public profile link */}
       <Separator className="my-4" />
       <div className="flex justify-center">
-        <Button variant="ghost" size="sm" asChild>
-          <Link href={"/profile" as Route}>
-            <Eye className="size-3.5" aria-hidden />
-            Xem hồ sơ công khai
-          </Link>
+        <Button variant="ghost" size="sm" disabled aria-disabled="true">
+          <Eye className="size-3.5" aria-hidden />
+          Xem hồ sơ công khai
         </Button>
       </div>
     </div>
