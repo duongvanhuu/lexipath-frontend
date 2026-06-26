@@ -42,15 +42,28 @@ export default function GoldenTimePage() {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Journey header */}
+      {/* Golden top accent — visual cue that this page is distinct */}
+      <div
+        className="h-0.5 w-full rounded-full bg-gradient-to-r from-transparent via-golden to-transparent"
+        aria-hidden
+      />
+
+      {/* Journey header — golden identity */}
       <PageJourneyHeader
         breadcrumbs={[
           { label: "Trang chủ", href: "/dashboard" },
           { label: "Golden Time" },
         ]}
-        title="Thời điểm ôn tập"
-        subtitle="Ôn đúng lúc giúp ghi nhớ bền hơn 3–4 lần so với học lại từ đầu."
-        badge="SRS"
+        title="Golden Time"
+        subtitle={
+          windowOpen
+            ? "Cửa sổ ôn tập đang mở — đây là thời điểm trí nhớ ghi nhớ bền nhất."
+            : "Ôn đúng cửa sổ thời gian — trí nhớ ghi nhớ bền hơn 3–4 lần."
+        }
+        badge={windowOpen ? "Đang mở" : "SRS"}
+        {...(windowOpen
+          ? { badgeClassName: "bg-golden-soft text-golden-foreground border border-golden/30" }
+          : {})}
       />
 
       {/* Hero */}
