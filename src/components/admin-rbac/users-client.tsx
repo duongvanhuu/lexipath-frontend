@@ -1,22 +1,24 @@
 "use client";
 
 import * as React from "react";
+import type { ColumnDef } from "@tanstack/react-table";
 import { Search, UserCog } from "lucide-react";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Card } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { PageHeader } from "@/components/layouts/page-header";
-import { EmptyState } from "@/components/shared/feedback/empty-state";
+import { AdminDataTable } from "@/components/admin/admin-data-table";
 import { AssignRoleDrawer } from "@/components/admin-rbac/assign-role-drawer";
-import { cn } from "@/lib/utils/cn";
 import type { AdminRole, RbacUser } from "@/features/admin-rbac";
-
-export type UsersClientProps = {
-  users: RbacUser[];
-  roles: AdminRole[];
-};
 
 function getInitials(name: string) {
   return name
@@ -27,8 +29,14 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
+export type UsersClientProps = {
+  users: RbacUser[];
+  roles: AdminRole[];
+};
+
 export function UsersClient({ users, roles }: UsersClientProps) {
   const [search, setSearch] = React.useState("");
+  const [roleFilter, setRoleFilter] = React.useState<string>("all");
   const [drawerUser, setDrawerUser] = React.useState<RbacUser | null>(null);
 
   const roleMap = React.useMemo(
@@ -38,12 +46,102 @@ export function UsersClient({ users, roles }: UsersClientProps) {
 
   const filtered = React.useMemo(() => {
     const q = search.trim().toLowerCase();
-    if (!q) return users;
-    return users.filter(
-      (u) =>
-        u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q)
-    );
-  }, [users, search]);
+    return users.filter((u) => {
+      const matchesSearch =
+        !q ||
+        u.name.toLowerCase().includes(q) ||
+        u.email.toLowerCase().includes(q);
+      const matchesRole =
+        roleFilter === "all" || u.roles.includes(roleFilter);
+      return matchesSearch && matchesRole;
+    });
+  }, [users, search, roleFilter]);
+
+  const columns = React.useMemo<ColumnDef<RbacUser>[]>(
+    () => [
+      {
+        id: "user",
+        header: "Người dùng",
+        accessorKey: "name",
+        enableSorting: true,
+        cell: ({ row }) => {
+          const u = row.original;
+          return (
+            <div className="flex items-center gap-3 min-w-0">
+              <Avatar className="size-8 shrink-0">
+                <AvatarFallback className="text-xs font-semibold bg-primary/10 text-primary">
+                  {getInitials(u.name)}
+                </AvatarFallback>
+              </Avatar>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-text-primary leading-snug truncate">
+                  {u.name}
+                </p>
+                <p className="text-xs text-text-muted truncate">{u.email}</p>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        id: "roles",
+        header: "Vai trò",
+        cell: ({ row }) => {
+          const u = row.original;
+          if (u.roles.length === 0) {
+            return (
+              <span className="text-xs text-text-muted">Chưa có vai trò</span>
+            );
+          }
+          return (
+            <div className="flex flex-wrap gap-1">
+              {u.roles.map((rid) => {
+                const role = roleMap[rid];
+                return (
+                  <Badge
+                    key={rid}
+                    variant={role?.system ? "secondary" : "outline"}
+                    className="text-xs"
+                  >
+                    {role?.name ?? rid}
+                  </Badge>
+                );
+              })}
+            </div>
+          );
+        },
+      },
+      {
+        id: "lastActive",
+        header: "Hoạt động gần đây",
+        accessorKey: "lastActive",
+        enableSorting: true,
+        cell: ({ row }) => (
+          <span className="text-sm text-text-secondary">
+            {row.original.lastActive}
+          </span>
+        ),
+      },
+      {
+        id: "actions",
+        header: "",
+        cell: ({ row }) => (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              setDrawerUser(row.original);
+            }}
+          >
+            <UserCog className="size-4" aria-hidden />
+            Quản lý
+          </Button>
+        ),
+      },
+    ],
+    [roleMap]
+  );
 
   return (
     <div className="flex flex-col gap-6">
@@ -52,85 +150,40 @@ export function UsersClient({ users, roles }: UsersClientProps) {
         description="Quản lý vai trò cho từng người dùng quản trị."
       />
 
-      {/* Search */}
-      <div className="relative max-w-sm">
-        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
-        <Input
-          aria-label="Tìm kiếm người dùng"
-          placeholder="Tìm theo tên hoặc email…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="pl-8 h-9"
-        />
+      {/* Filters */}
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative w-full max-w-sm">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
+          <Input
+            aria-label="Tìm kiếm người dùng"
+            placeholder="Tìm theo tên hoặc email…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="pl-8 h-9"
+          />
+        </div>
+        <Select value={roleFilter} onValueChange={setRoleFilter}>
+          <SelectTrigger className="h-9 w-[200px]" aria-label="Lọc theo vai trò">
+            <SelectValue placeholder="Tất cả vai trò" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Tất cả vai trò</SelectItem>
+            {roles.map((role) => (
+              <SelectItem key={role.id} value={role.id}>
+                {role.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
-      {/* User list */}
-      <Card className="overflow-hidden p-0">
-        {filtered.length === 0 ? (
-          <div className="py-12">
-            <EmptyState
-              title="Không tìm thấy người dùng"
-              description="Thử tìm với từ khóa khác."
-            />
-          </div>
-        ) : (
-          <ul role="list">
-            {filtered.map((u, i) => (
-              <li
-                key={u.id}
-                className={cn(
-                  "flex flex-wrap items-center gap-4 px-4 py-3.5 sm:flex-nowrap",
-                  i < filtered.length - 1 && "border-b"
-                )}
-              >
-                <Avatar className="size-9 shrink-0">
-                  <AvatarFallback className="text-xs font-semibold bg-primary/10 text-primary">
-                    {getInitials(u.name)}
-                  </AvatarFallback>
-                </Avatar>
-
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-text-primary leading-snug">
-                    {u.name}
-                  </p>
-                  <p className="text-xs text-text-muted">
-                    {u.email} · {u.lastActive}
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-1.5 sm:justify-end sm:max-w-xs">
-                  {u.roles.length > 0 ? (
-                    u.roles.map((rid) => {
-                      const role = roleMap[rid];
-                      return (
-                        <Badge
-                          key={rid}
-                          variant={role?.system ? "secondary" : "outline"}
-                          className="text-xs"
-                        >
-                          {role?.name ?? rid}
-                        </Badge>
-                      );
-                    })
-                  ) : (
-                    <span className="text-xs text-text-muted">Chưa có vai trò</span>
-                  )}
-                </div>
-
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="shrink-0"
-                  onClick={() => setDrawerUser(u)}
-                >
-                  <UserCog className="size-4" aria-hidden />
-                  Quản lý
-                </Button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </Card>
+      <AdminDataTable
+        data={filtered}
+        columns={columns}
+        emptyTitle="Không tìm thấy người dùng"
+        emptyDescription="Thử tìm với từ khóa hoặc vai trò khác."
+        onRowClick={(user) => setDrawerUser(user)}
+      />
 
       <AssignRoleDrawer
         user={drawerUser}
