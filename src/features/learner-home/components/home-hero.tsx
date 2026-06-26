@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { Route } from "next";
 import Link from "next/link";
-import { MapPin, Flame, CheckCircle2, Clock, ArrowRight, Info } from "lucide-react";
+import { MapPin, Flame, CheckCircle2, Clock, ArrowRight, AlertCircle } from "lucide-react";
 
 import { cn } from "@/lib/utils/cn";
 
@@ -72,7 +72,7 @@ function HomeHero({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 gap-4 lg:grid-cols-[1fr_320px]",
+        "flex flex-col-reverse gap-4 lg:grid lg:grid-cols-[1fr_320px]",
         className
       )}
     >
@@ -134,14 +134,14 @@ function HomeHero({
 
         <p className="text-sm text-text-secondary">
           {isGolden
-            ? `${goldenOverdue > 0 ? `${goldenOverdue} từ quá hạn · ` : ""}~${goldenMins} phút`
+            ? `~${goldenMins} phút`
             : `${lessonDone}/${lessonTotal} ${lessonUnit} · ${lessonTitle}`}
         </p>
 
         {isGolden && goldenOverdue > 0 ? (
-          <div className="flex items-center gap-1.5 text-[11px] text-text-muted">
-            <Info className="size-3 shrink-0" aria-hidden />
-            {goldenOverdue} từ đang quá hạn — nên ôn trước
+          <div className="flex items-center gap-1.5 rounded-lg bg-destructive/10 px-2.5 py-1.5 text-[11.5px] font-medium text-destructive">
+            <AlertCircle className="size-3.5 shrink-0" aria-hidden />
+            {goldenOverdue} từ quá hạn — ôn trước để không mất streak!
           </div>
         ) : !isGolden ? (
           <div className="flex items-center gap-1.5 text-[11px] text-text-muted">

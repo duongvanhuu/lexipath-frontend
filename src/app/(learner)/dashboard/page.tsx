@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Metadata } from "next";
 
 import { HomeHero } from "@/features/learner-home/components/home-hero";
 import { HomeJourneyRail } from "@/features/learner-home/components/home-journey-rail";
@@ -14,6 +15,10 @@ import {
   MOCK_HOME_SKILLS,
   MOCK_HOME_WEEK,
 } from "@/features/learner-home";
+
+export const metadata: Metadata = {
+  title: "Trang chủ",
+};
 
 export default function DashboardPage() {
   return (
