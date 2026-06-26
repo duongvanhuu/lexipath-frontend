@@ -2,7 +2,24 @@ import { type NextRequest, NextResponse } from "next/server";
 import { SESSION_COOKIE } from "@/lib/auth/session";
 
 /** Route prefixes that require a valid session. */
-const PROTECTED_PREFIXES = ["/dashboard", "/learning", "/vocabulary", "/notebook", "/settings"];
+const PROTECTED_PREFIXES = [
+  "/dashboard",
+  "/golden-time",
+  "/learn",
+  "/collections",
+  "/stats",
+  "/profile",
+  "/security",
+  "/subscription",
+  "/notifications",
+  "/exams",
+  "/dictionary",
+  "/notebook",
+  "/settings",
+  "/vocab",
+  "/admin",
+  "/onboarding",
+];
 
 /** Auth pages that should redirect authenticated users to the app. */
 const AUTH_PATHS = ["/login", "/register"];
@@ -16,12 +33,15 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
+  // Redirect authenticated users from marketing root to the app
+  if (isAuthenticated && pathname === "/") {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
   // Redirect unauthenticated users away from protected routes
   if (!isAuthenticated && PROTECTED_PREFIXES.some((p) => pathname.startsWith(p))) {
     const loginUrl = new URL("/login", request.url);
-    if (pathname !== "/dashboard") {
-      loginUrl.searchParams.set("from", pathname);
-    }
+    loginUrl.searchParams.set("from", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
