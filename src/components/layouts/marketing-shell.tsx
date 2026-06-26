@@ -43,7 +43,13 @@ function MarketingShell({
   className,
 }: MarketingShellProps) {
   return (
-    <div className={cn("min-h-svh bg-background", className)}>
+    <div className={cn("min-h-svh overflow-x-hidden bg-background", className)}>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-card focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-md focus:ring-2 focus:ring-primary"
+      >
+        Bỏ qua điều hướng
+      </a>
       <header className="sticky top-0 z-30 border-b border-border bg-card/85 backdrop-blur supports-backdrop-filter:bg-card/70">
         <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-8">
@@ -90,7 +96,7 @@ function MarketingShell({
         </div>
       </header>
 
-      {children}
+      <main id="main-content">{children}</main>
     </div>
   );
 }

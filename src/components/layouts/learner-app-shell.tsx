@@ -45,6 +45,12 @@ function LearnerAppShell({
 
   return (
     <div className={cn("min-h-svh bg-background", className)}>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-card focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-md focus:ring-2 focus:ring-primary"
+      >
+        Bỏ qua điều hướng
+      </a>
       <header className="sticky top-0 z-30 border-b border-border bg-card/85 backdrop-blur supports-backdrop-filter:bg-card/70">
         <div className="mx-auto flex h-16 max-w-[1280px] items-center gap-4 px-4 sm:px-6 lg:px-7">
 
@@ -149,7 +155,7 @@ function LearnerAppShell({
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1180px] px-4 py-8 sm:px-6 lg:px-8">
+      <main id="main-content" className="mx-auto max-w-[1180px] px-4 py-8 sm:px-6 lg:px-8">
         {children}
       </main>
     </div>

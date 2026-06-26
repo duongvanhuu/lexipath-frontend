@@ -222,9 +222,16 @@ export function AdminDataTable<TData>({
                   data-state={row.getIsSelected() ? "selected" : undefined}
                   className={cn(
                     "data-[state=selected]:bg-muted",
-                    onRowClick && "cursor-pointer",
+                    onRowClick && "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset",
                   )}
+                  tabIndex={onRowClick ? 0 : undefined}
                   onClick={onRowClick ? () => onRowClick(row.original) : undefined}
+                  onKeyDown={onRowClick ? (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      onRowClick(row.original);
+                    }
+                  } : undefined}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -244,23 +251,25 @@ export function AdminDataTable<TData>({
       {hasPagination && (
         <div className="flex items-center justify-end gap-2 text-sm text-muted-foreground">
           <span>
-            Page {currentPage + 1} of {pageCount}
+            Trang {currentPage + 1} / {pageCount}
           </span>
           <Button
             variant="outline"
             size="sm"
             disabled={currentPage === 0}
+            aria-label="Trang trước"
             onClick={() => onPageChange(currentPage - 1)}
           >
-            Prev
+            Trước
           </Button>
           <Button
             variant="outline"
             size="sm"
             disabled={currentPage >= pageCount - 1}
+            aria-label="Trang tiếp"
             onClick={() => onPageChange(currentPage + 1)}
           >
-            Next
+            Tiếp
           </Button>
         </div>
       )}

@@ -66,6 +66,12 @@ function AdminShell({
 
   return (
     <div className={cn("flex h-svh overflow-hidden bg-background", className)}>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-card focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-md focus:ring-2 focus:ring-primary"
+      >
+        Bỏ qua điều hướng
+      </a>
       <aside className="hidden lg:block">
         <AdminSidebar
           logo={logo}
@@ -91,7 +97,7 @@ function AdminShell({
           ) : null}
         </header>
 
-        <main className="flex-1 overflow-auto p-4 sm:p-6">{children}</main>
+        <main id="main-content" className="flex-1 overflow-auto p-4 sm:p-6">{children}</main>
       </div>
     </div>
   );

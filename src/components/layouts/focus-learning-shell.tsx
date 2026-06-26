@@ -72,7 +72,7 @@ function FocusLearningShell({
         ) : null}
       </header>
 
-      <main className="flex flex-1 flex-col items-center px-4 py-12 sm:px-6">
+      <main id="main-content" className="flex flex-1 flex-col items-center px-4 py-12 sm:px-6">
         <div className={cn("w-full max-w-xl", contentClassName)}>{children}</div>
       </main>
     </div>
