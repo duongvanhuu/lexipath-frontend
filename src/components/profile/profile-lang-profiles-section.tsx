@@ -33,7 +33,7 @@ function ProfileLangProfilesSection({
           Hồ sơ ngôn ngữ
         </h2>
         <Button variant="ghost" size="sm" asChild>
-          <Link href={"/settings" as Route} aria-label="Quản lý hồ sơ ngôn ngữ">
+          <Link href={"/profile" as Route} aria-label="Quản lý hồ sơ ngôn ngữ">
             Quản lý →
           </Link>
         </Button>
@@ -44,7 +44,7 @@ function ProfileLangProfilesSection({
           <Languages className="size-8 text-text-muted" aria-hidden />
           <p className="text-sm text-text-muted">Chưa có hồ sơ ngôn ngữ</p>
           <Button size="sm" asChild>
-            <Link href={"/settings" as Route}>
+            <Link href={"/profile" as Route}>
               <Plus className="size-3.5" aria-hidden />
               Thêm ngôn ngữ
             </Link>
@@ -57,7 +57,7 @@ function ProfileLangProfilesSection({
             return (
               <Link
                 key={profile.id}
-                href={"/settings" as Route}
+                href={"/profile" as Route}
                 className={cn(
                   "flex items-center gap-3 rounded-xl bg-card p-3 ring-1 ring-foreground/10 transition-shadow hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                 )}

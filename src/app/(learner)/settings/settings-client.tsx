@@ -101,9 +101,9 @@ function SettingsClient() {
         onDismiss={() => setPermState("denied")}
       />
 
-      {/* Section A */}
+      {/* Section: Learning reminders */}
       <p className="mb-3 text-xs font-semibold uppercase tracking-[0.05em] text-text-muted">
-        A. Nhắc nhở học tập
+        Nhắc nhở học tập
       </p>
       <Card className="py-0">
         <NotificationToggleRow
@@ -145,9 +145,9 @@ function SettingsClient() {
         />
       </Card>
 
-      {/* Section B */}
+      {/* Section: Account notifications */}
       <p className="mb-3 mt-6 text-xs font-semibold uppercase tracking-[0.05em] text-text-muted">
-        B. Thông báo tài khoản
+        Thông báo tài khoản
       </p>
       <Card className="py-0">
         <NotificationAccountRow
@@ -185,9 +185,9 @@ function SettingsClient() {
         />
       </Card>
 
-      {/* Section C */}
+      {/* Section: Language reminder schedule */}
       <p className="mb-3 mt-6 text-xs font-semibold uppercase tracking-[0.05em] text-text-muted">
-        C. Lịch nhắc theo ngôn ngữ
+        Lịch nhắc theo ngôn ngữ
       </p>
       <Card className="py-0">
         {(() => {

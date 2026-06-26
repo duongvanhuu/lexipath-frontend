@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import {
   Bell,
-  Languages,
+  SlidersHorizontal,
   ChevronRight,
   BadgeCheck,
   Package,
@@ -115,9 +115,9 @@ export function ProfileClient() {
             <NavShortcutRow
               href={"/settings" as Route}
               iconBg="bg-primary-soft text-primary-soft-foreground"
-              icon={<Languages className="size-4" />}
-              label="Hồ sơ ngôn ngữ"
-              description="Thêm và cấu hình ngôn ngữ học"
+              icon={<SlidersHorizontal className="size-4" />}
+              label="Cài đặt thông báo"
+              description="Tuỳ chỉnh nhắc nhở và lịch học theo ngôn ngữ"
             />
           </div>
         </section>
