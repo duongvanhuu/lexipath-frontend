@@ -11,9 +11,12 @@ export type StatsStreakCalendarProps = {
 };
 
 function StatsStreakCalendar({ calendar, className }: StatsStreakCalendarProps) {
+  const weeks = 4;
+
   return (
     <div className={cn("flex flex-col gap-2", className)}>
-      <div className="grid grid-cols-7 gap-1">
+      {/* Visual calendar — column headers */}
+      <div className="grid grid-cols-7 gap-1" aria-hidden>
         {DAY_LABELS.map((d) => (
           <div key={d} className="text-center text-[9px] font-bold uppercase tracking-wide text-text-muted">
             {d}
@@ -21,13 +24,13 @@ function StatsStreakCalendar({ calendar, className }: StatsStreakCalendarProps) 
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-1.5">
+      {/* Visual calendar — cells */}
+      <div className="grid grid-cols-7 gap-1.5" aria-hidden>
         {calendar.slice(0, 28).map((done, idx) => {
           const isToday = idx === 27;
           return (
             <div
               key={idx}
-              title={isToday ? "Hôm nay" : done ? "Đã học" : "Bỏ lỡ"}
               className={cn(
                 "flex aspect-square items-center justify-center rounded-lg border",
                 isToday
@@ -48,6 +51,36 @@ function StatsStreakCalendar({ calendar, className }: StatsStreakCalendarProps) 
           );
         })}
       </div>
+
+      {/* Screen-reader table — same data, accessible format */}
+      <table className="sr-only">
+        <caption>Lịch streak 28 ngày gần nhất</caption>
+        <thead>
+          <tr>
+            <th scope="col">Tuần</th>
+            {DAY_LABELS.map((d) => (
+              <th key={d} scope="col">{d}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {Array.from({ length: weeks }, (_, w) => (
+            <tr key={w}>
+              <th scope="row">{w === weeks - 1 ? "Tuần này" : `${weeks - w} tuần trước`}</th>
+              {DAY_LABELS.map((_, di) => {
+                const idx = w * 7 + di;
+                const isToday = idx === 27;
+                const done = calendar[idx];
+                return (
+                  <td key={di}>
+                    {isToday ? "Hôm nay" : done ? "Đã học" : "Bỏ lỡ"}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <div className="flex flex-wrap gap-3 text-[11px] text-text-muted">
         {[

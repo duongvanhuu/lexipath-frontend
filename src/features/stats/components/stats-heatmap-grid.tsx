@@ -10,6 +10,16 @@ const LEVEL_BG = [
   "bg-primary",
 ] as const;
 
+const LEVEL_LABEL = [
+  "Không học",
+  "1–5 từ",
+  "6–15 từ",
+  "16–30 từ",
+  "30+ từ",
+] as const;
+
+const DAY_LABELS = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"] as const;
+
 export type StatsHeatmapGridProps = {
   cells: number[];
   langName: string;
@@ -26,11 +36,8 @@ function StatsHeatmapGrid({ cells, langName, className }: StatsHeatmapGridProps)
         <span className="ml-1.5 font-normal text-text-muted">· {langName}</span>
       </p>
 
-      <div
-        className="overflow-x-auto pb-1"
-        role="img"
-        aria-label={`Biểu đồ hoạt động 18 tuần — ${langName}`}
-      >
+      {/* Visual heatmap — decorative, hidden from screen readers */}
+      <div className="overflow-x-auto pb-1" aria-hidden>
         <div
           className="grid min-w-72 gap-1"
           style={{ gridTemplateColumns: `repeat(${WEEKS}, 1fr)` }}
@@ -42,7 +49,6 @@ function StatsHeatmapGrid({ cells, langName, className }: StatsHeatmapGridProps)
                 return (
                   <div
                     key={d}
-                    title={`Tuần ${WEEKS - w}, ngày ${d + 1}`}
                     className={cn("aspect-square rounded-sm", LEVEL_BG[level])}
                   />
                 );
@@ -52,16 +58,40 @@ function StatsHeatmapGrid({ cells, langName, className }: StatsHeatmapGridProps)
         </div>
       </div>
 
-      <div className="flex items-center gap-1.5 text-[11px] text-text-muted">
-        <span>Ít</span>
+      {/* Screen-reader table — same data, accessible format */}
+      <table className="sr-only" aria-label={`Biểu đồ hoạt động 18 tuần — ${langName}`}>
+        <caption>Hoạt động học tập 18 tuần gần nhất — {langName}</caption>
+        <thead>
+          <tr>
+            <th scope="col">Tuần</th>
+            {DAY_LABELS.map((d) => (
+              <th key={d} scope="col">{d}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {Array.from({ length: WEEKS }, (_, w) => (
+            <tr key={w}>
+              <th scope="row">
+                {w === WEEKS - 1 ? "Tuần này" : `${WEEKS - w} tuần trước`}
+              </th>
+              {Array.from({ length: 7 }, (_, d) => {
+                const level = cells[w * 7 + d] ?? 0;
+                return <td key={d}>{LEVEL_LABEL[level]}</td>;
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Legend */}
+      <div className="flex flex-wrap items-center gap-3 text-[11px] text-text-muted">
         {LEVEL_BG.map((bg, l) => (
-          <span
-            key={l}
-            aria-hidden
-            className={cn("inline-block size-2.5 rounded-sm", bg)}
-          />
+          <span key={l} className="flex items-center gap-1">
+            <span aria-hidden className={cn("inline-block size-2.5 rounded-sm", bg)} />
+            {LEVEL_LABEL[l]}
+          </span>
         ))}
-        <span>Nhiều</span>
       </div>
     </div>
   );
