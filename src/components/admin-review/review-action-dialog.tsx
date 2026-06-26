@@ -325,7 +325,7 @@ export function ApproveDialog({
               onClick={() => onApprove(true)}
             >
               <Globe className="size-4" aria-hidden />
-              Phê duyệt &amp; xuất bản
+              Phê duyệt & xuất bản
             </Button>
             <Button variant="ghost" onClick={onClose}>
               Hủy

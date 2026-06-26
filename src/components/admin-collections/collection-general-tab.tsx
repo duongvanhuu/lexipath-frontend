@@ -146,7 +146,7 @@ export function CollectionGeneralTab({ form, onChange }: CollectionGeneralTabPro
         <Card>
           <CardContent className="pt-5">
             <p className="mb-3 text-xs font-bold uppercase tracking-widest text-text-secondary border-b border-border pb-2">
-              Chứng chỉ &amp; Cấp độ
+              Chứng chỉ & Cấp độ
             </p>
             <div className="grid grid-cols-3 gap-x-4">
               <CollectionFormRow label="Loại chứng chỉ">

@@ -201,7 +201,7 @@ export function CollectionEditorClient({
           <TabsTrigger value="tags">Tags ({tagCount})</TabsTrigger>
           <TabsTrigger value="access">Quyền truy cập</TabsTrigger>
           <TabsTrigger value="lessons">Bài học ({lessonCount})</TabsTrigger>
-          <TabsTrigger value="history">Lịch sử &amp; Duyệt</TabsTrigger>
+          <TabsTrigger value="history">Lịch sử & Duyệt</TabsTrigger>
         </TabsList>
 
         <TabsContent value="info">

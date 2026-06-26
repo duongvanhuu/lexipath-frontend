@@ -82,7 +82,7 @@ export function TestBuilderClient({
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-text-primary">Tạo đề thi</h1>
           <p className="mt-1.5 text-sm text-text-secondary">
-            {tests.length} đề thi · tìm câu hỏi, dựng cấu trúc, kiểm tra &amp; xuất bản
+            {tests.length} đề thi · tìm câu hỏi, dựng cấu trúc, kiểm tra & xuất bản
           </p>
         </div>
         <Button

@@ -61,6 +61,7 @@ export function MatchingPairEditor({
             value={p.left}
             onChange={(e) => set(i, { left: e.target.value })}
             placeholder={`Mục ${i + 1}`}
+            aria-label={`Vế trái cặp ghép ${i + 1}`}
             className="h-8 text-sm"
           />
           <ArrowRight
@@ -71,6 +72,7 @@ export function MatchingPairEditor({
             value={p.right}
             onChange={(e) => set(i, { right: e.target.value })}
             placeholder="Ghép với…"
+            aria-label={`Vế phải cặp ghép ${i + 1}`}
             className="h-8 text-sm"
           />
           {canDelete ? (

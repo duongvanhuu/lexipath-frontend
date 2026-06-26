@@ -358,7 +358,7 @@ export function ReviewDetailClient({ detail }: ReviewDetailClientProps) {
           {/* Source & license */}
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm">Nguồn &amp; License</CardTitle>
+              <CardTitle className="text-sm">Nguồn & License</CardTitle>
             </CardHeader>
             <CardContent className="pb-4">
               <SourceInfoPanel

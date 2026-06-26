@@ -69,6 +69,7 @@ export function OrderingEditor({
             value={it.text}
             onChange={(e) => setText(i, e.target.value)}
             placeholder={`Mục thứ ${i + 1}`}
+            aria-label={`Mục thứ ${i + 1}`}
             className="h-8 text-sm"
           />
 

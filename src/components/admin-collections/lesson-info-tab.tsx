@@ -103,7 +103,7 @@ export function LessonInfoTab({ form, onChange, itemCount }: LessonInfoTabProps)
         <Card>
           <CardContent className="pt-5">
             <p className="mb-3 text-xs font-bold uppercase tracking-widest text-text-secondary border-b border-border pb-2">
-              Trạng thái &amp; Phát hành
+              Trạng thái & Phát hành
             </p>
 
             <CollectionFormRow label="Trạng thái">

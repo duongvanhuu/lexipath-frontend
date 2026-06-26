@@ -147,6 +147,7 @@ export function FillBlankEditor({
                     value={answer}
                     onChange={(e) => setAccepted(pos, idx, e.target.value)}
                     placeholder="Đáp án chấp nhận…"
+                    aria-label={`Đáp án chấp nhận ${idx + 1} cho chỗ trống ${pos}`}
                     className="h-8 text-sm"
                   />
                   <Button

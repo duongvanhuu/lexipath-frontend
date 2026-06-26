@@ -60,12 +60,12 @@ export function ProgramCard({ program, onClick }: ProgramCardProps) {
           <span className="inline-flex items-center gap-1 text-[11px] text-text-muted">
             <Layers className="size-3" aria-hidden />
             <strong className="text-text-primary">{program.blueprintCount}</strong>
-            &nbsp;BP
+            {" "}BP
           </span>
           <span className="inline-flex items-center gap-1 text-[11px] text-text-muted">
             <FileText className="size-3" aria-hidden />
             <strong className="text-text-primary">{program.testCount}</strong>
-            &nbsp;đề
+            {" "}đề
           </span>
           <ProgramStatusDot status={program.status} />
         </div>

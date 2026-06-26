@@ -65,7 +65,7 @@ export default function StatsXpPage() {
             Thống kê
           </Link>
         </Button>
-        <h1 className="text-2xl font-bold tracking-tight">XP &amp; Lịch sử</h1>
+        <h1 className="text-2xl font-bold tracking-tight">XP & Lịch sử</h1>
       </div>
 
       {/* Summary tiles */}

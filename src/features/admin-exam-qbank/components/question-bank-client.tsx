@@ -287,7 +287,7 @@ export function QuestionBankClient({ mock, className }: QuestionBankClientProps)
         <TabsList>
           <TabsTrigger value="questions">Câu hỏi</TabsTrigger>
           <TabsTrigger value="groups">Nhóm câu hỏi</TabsTrigger>
-          <TabsTrigger value="tags">Tags &amp; Nguồn</TabsTrigger>
+          <TabsTrigger value="tags">Tags & Nguồn</TabsTrigger>
         </TabsList>
 
         {/* Questions tab */}

@@ -102,6 +102,7 @@ export function ChoiceEditor({
             value={c.text}
             onChange={(e) => set(i, { text: e.target.value })}
             placeholder={`Nội dung lựa chọn ${c.key}`}
+            aria-label={`Nội dung lựa chọn ${c.key}`}
             className="h-8 text-sm"
           />
 

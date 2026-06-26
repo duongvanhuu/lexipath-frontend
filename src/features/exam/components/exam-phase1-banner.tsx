@@ -20,7 +20,7 @@ function ExamPhase1Banner({ className }: ExamPhase1BannerProps) {
       />
       <div>
         <p className="text-sm font-semibold text-text-primary">
-          Kho đề Phase 1 — Xem cấu trúc &amp; chuẩn bị từ vựng
+          Kho đề Phase 1 — Xem cấu trúc & chuẩn bị từ vựng
         </p>
         <p className="mt-0.5 text-xs leading-relaxed text-text-secondary">
           Hiện tại bạn có thể xem cấu trúc đề thi, yêu cầu kỹ năng, cách tính điểm và các bộ từ vựng liên quan.

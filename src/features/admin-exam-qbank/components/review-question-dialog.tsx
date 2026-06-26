@@ -93,7 +93,7 @@ export function ReviewQuestionDialog({
               }}
             >
               <CheckCircle className="mr-1.5 size-3.5" aria-hidden />
-              Duyệt &amp; xuất bản
+              Duyệt & xuất bản
             </Button>
           </div>
         </DialogFooter>

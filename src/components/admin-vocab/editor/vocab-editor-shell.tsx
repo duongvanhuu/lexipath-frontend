@@ -29,7 +29,7 @@ import { VocabZhSection } from "./vocab-zh-section";
 function TabPlaceholder({ tabId }: { tabId: VocabEditorTabId }) {
   return (
     <div className="flex h-48 items-center justify-center rounded-lg border border-dashed text-sm text-muted-foreground">
-      Tab &ldquo;{tabId}&rdquo; &mdash; chưa triển khai
+      Tab &ldquo;{tabId}&rdquo; — chưa triển khai
     </div>
   );
 }

@@ -70,7 +70,7 @@ function StatsFilterBar({ scope, range, lang, langName, langFlag, motivation }: 
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex gap-1">
             <Chip active={scope === "lang"} onClick={() => update({ scope: "lang" })}>
-              {langFlag}&nbsp;{langName}
+              {langFlag}{" "}{langName}
             </Chip>
             <Chip active={scope === "account"} onClick={() => update({ scope: "account" })}>
               Toàn tài khoản

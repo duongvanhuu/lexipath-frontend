@@ -197,8 +197,8 @@ export function QuestionEditorPanel({
         <div className="min-w-0 flex-1">
           <Tabs defaultValue="content">
             <TabsList>
-              <TabsTrigger value="content">Nội dung &amp; đáp án</TabsTrigger>
-              <TabsTrigger value="meta">Phân loại &amp; nguồn</TabsTrigger>
+              <TabsTrigger value="content">Nội dung & đáp án</TabsTrigger>
+              <TabsTrigger value="meta">Phân loại & nguồn</TabsTrigger>
               <TabsTrigger value="preview">Xem trước</TabsTrigger>
             </TabsList>
 
