@@ -65,6 +65,7 @@ function DictionaryResultCard({
         {/* Word */}
         <div className="flex-shrink-0 min-w-[52px]">
           <span
+            lang={entry.lang !== "en" ? entry.lang : undefined}
             className={cn(
               "block font-bold leading-tight text-text-primary",
               isEN ? "text-lg font-sans" : "text-2xl",
@@ -81,6 +82,7 @@ function DictionaryResultCard({
         <div className="flex-1 min-w-0">
           {entry.reading && (
             <p
+              lang={entry.lang !== "en" ? entry.lang : undefined}
               className={cn(
                 "text-xs font-medium mb-1",
                 isEN

@@ -85,8 +85,9 @@ export function createVocabTableColumns(
         return (
           <div className="flex min-w-0 items-center gap-1.5">
             <span
+              title={item.canonicalForm}
               className={cn(
-                "truncate max-w-[140px] text-sm font-medium",
+                "truncate max-w-[200px] text-sm font-medium",
                 isCjk && "font-sans"
               )}
             >
