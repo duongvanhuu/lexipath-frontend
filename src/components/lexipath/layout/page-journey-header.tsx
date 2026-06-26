@@ -15,6 +15,7 @@ export type PageJourneyHeaderProps = {
   title: string;
   subtitle?: string;
   badge?: string;
+  badgeClassName?: string;
   className?: string;
 };
 
@@ -28,6 +29,7 @@ function PageJourneyHeader({
   title,
   subtitle,
   badge,
+  badgeClassName,
   className,
 }: PageJourneyHeaderProps) {
   return (
@@ -73,7 +75,12 @@ function PageJourneyHeader({
       <div className="flex flex-wrap items-center gap-2">
         <h1 className="text-2xl font-bold text-text-primary">{title}</h1>
         {badge ? (
-          <Badge className="rounded-pill bg-primary-soft text-primary-soft-foreground">
+          <Badge
+            className={cn(
+              "rounded-pill bg-primary-soft text-primary-soft-foreground",
+              badgeClassName
+            )}
+          >
             {badge}
           </Badge>
         ) : null}

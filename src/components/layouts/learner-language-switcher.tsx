@@ -247,7 +247,7 @@ export function LearnerLanguageSwitcher({
               Thêm ngôn ngữ học
             </Link>
             <Link
-              href={"/settings/language" as Route}
+              href={"/profile" as Route}
               onClick={() => setOpen(false)}
               className="flex w-full items-center gap-2.5 px-4 py-3 text-[13px] font-medium text-text-secondary transition-colors hover:bg-surface-muted hover:text-foreground"
             >
